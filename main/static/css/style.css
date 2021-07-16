@@ -6600,7 +6600,8 @@ a.mobile_link:hover {
   width: 20px;
   height: 20px;
   cursor: pointer;
-  /* background: url(https://atchange.net/wp-content/themes/exchanger/images/close.png) no-repeat center center; */
+  background: url(https://raw.githubusercontent.com/Abdoulrasheed/boyexchange/main/main/static/images/close.png)
+    no-repeat center center;
   top: 15px;
   right: 15px;
 }
@@ -6706,7 +6707,6 @@ a.mobile_link:hover {
 }
 .status_op0 .statuswork_ins {
   color: #fff;
-  background: url(images/offline.png) no-repeat left center;
 }
 .rtl_body .statuswork {
   padding: 7px 15px 0 0px;
@@ -6762,7 +6762,8 @@ a.mobile_link:hover {
 }
 .levents_arr {
   height: 15px;
-  /* background: url(images/courselogs.png) no-repeat center center; */
+  background: url(https://raw.githubusercontent.com/Abdoulrasheed/boyexchange/main/main/static/images/courselogs.png)
+    no-repeat center center;
 }
 .levents_close {
   position: absolute;
@@ -6771,7 +6772,8 @@ a.mobile_link:hover {
   right: 10px;
   width: 16px;
   height: 16px;
-  /* background: url(images/close.png) no-repeat; */
+  background: url(https://raw.githubusercontent.com/Abdoulrasheed/boyexchange/main/main/static/images/close.png)
+    no-repeat;
   cursor: pointer;
 }
 .rtl_body .levents_close {
@@ -6844,11 +6846,13 @@ a.mobile_link:hover {
 }
 .pn_copy {
   padding: 0 5px 0 20px;
-  background: url(images/copy_b.png) no-repeat 0 center;
+  background: url(https://raw.githubusercontent.com/Abdoulrasheed/boyexchange/main/main/static/images/copy_b.png)
+    no-repeat 0 center;
 }
 .pn_copy.copied {
   color: #00c063;
-  background: url(images/copy.png) no-repeat 0 center;
+  background: url(https://raw.githubusercontent.com/Abdoulrasheed/boyexchange/main/main/static/images/copy.png)
+    no-repeat 0 center;
 }
 .break_words {
   word-break: break-all;
