@@ -1,0 +1,353 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="profile" href="https://gmpg.org/xfn/11" />
+    <title>{% block title %} Boy XChange - Home {% endblock %}</title>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com/" />
+    <link rel="dns-prefetch" href="https://s.w.org/" />
+    <link
+      rel="stylesheet"
+      id="premium-all-style-css"
+      href="{% static 'css/main.css' %}"
+      type="text/css"
+      media="all"
+    />
+    <link
+      rel="stylesheet"
+      id="open-sans-css"
+      href="{% static 'css/fonts.css' %}"
+      type="text/css"
+      media="all"
+    />
+    <link
+      rel="stylesheet"
+      id="theme-style-css"
+      href="{% static 'css/style.css' %}"
+      type="text/css"
+      media="all"
+    />
+    <link
+      rel="stylesheet"
+      id="wp-block-library-css"
+      href="{% static 'css/style.min.css' %}"
+      type="text/css"
+      media="all"
+    />
+    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jqueryui.js' %}"></script>
+    <script
+      type="text/javascript"
+      src="{% static 'js/script.min(2).js' %}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{% static 'js/script.min(3).js' %}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{% static 'js/clipboard.js' %}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{% static 'js/script.min(5).js' %}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{% static 'js/jquery-select.js' %}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{% static 'js/script.min(6).js' %}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{% static 'js/script.min(7).js' %}"
+    ></script>
+    <script type="text/javascript" src="{% static 'js/site.js' %}"></script>
+    <script
+      type="text/javascript"
+      src="{% static 'js/script.min(8).js' %}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{% static 'js/jqueryqrcode.js' %}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{% static 'js/premium_script.js' %}"
+    ></script>
+    <meta
+      name="keywords"
+      content="PM Exchange,PM Exchanger,PerfectMoney(PM) Exchange,BuyPM, ExchangePM,SellPM,PAYEER Exchanger,PAYEER Exchange,Buy PAYEER, Exchange PAYEER,Sell PAYEER,BTC Exchange,BTC Exchanger,Bitcoin(BTC) Exchange,Buy BTC, Exchange BTC,Sell BTC,ADVCASH Exchange,ADVCASH Exchanger,ADVCASH(ADV) Exchange,Buy ADVCASH, Exchange ADVCASH,Sell ADVCASH"
+    />
+    <meta name="description" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://boyexchange.com/" />
+    <meta property="og:site_name" content="boyExchange.com" />
+    <meta
+      property="og:description"
+      content="© No 1 Currency Exchange Plartform in Nigeria"
+    />
+    <meta property="og:title" content="boyexchange.com" />
+    <link
+      rel="shortcut icon"
+      href="{% static 'images/logo.png' %}"
+      type="image/png"
+    />
+    <linkrel="icon" href="{% static 'images/logo.png' %}" type="image/png"/>
+    <style type="text/css" id="custom-background-css">
+      body.custom-background {
+        background-color: #2072bf;
+        background-image: url("{% static 'images/bg.png' %}");
+        background-position: left top;
+        background-size: auto;
+        background-repeat: repeat;
+        background-attachment: scroll;
+      }
+    </style>
+  </head>
+  <body
+    class="
+      {% if request.path == "/" %} home {% endif %}
+      color_r
+      page-template
+      page-template-pn-homepage
+      page-template-pn-homepage-php
+      page
+      page-id-4
+      custom-background
+    "
+    data-new-gr-c-s-check-loaded="14.1022.0"
+    data-gr-ext-installed=""
+    cz-shortcut-listen="true"
+  >
+    <div id="container">
+      <!-- top bar -->
+      <div class="topbar_wrap" id="fix_div">
+        <div
+          class="topbar_ins"
+          id="fix_elem"
+          style="position: absolute; top: 0px"
+        >
+          <div class="topbar">
+            <div class="tolbar_lang">
+              <div class="langlist_div">
+                <div class="langlist_title" style="background: url({% static 'images/l_arr.png' %}) no-repeat right center;"><span>en</span></div>
+                <div class="langlist_ul">
+                  <a href="{% url 'home' %}" class="langlist_li">
+                    <div class="langlist_liimg">
+                      <img src="{% static 'images/en_US.png' %}" alt="" />
+                    </div>
+                    English
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="topbar_icon icq" style="background: url({% static 'images/icq.png' %}) no-repeat left center;">+2348000000000</div>
+            <div class="topbar_icon email">
+              <a href="mailto:info@boyxchange.com">info@boyxchange.com</a>
+            </div>
+            <a href="#" class="toplink toplink_signup js_window_join"
+              >Sign up</a
+            >
+            <a href="#" class="toplink toplink_signin js_window_login"
+              >Sign in</a
+            >
+            <div class="clear"></div>
+          </div>
+        </div>
+      </div>
+      <!-- end top bar -->
+      <!-- top menu -->
+      <div class="tophead_wrap">
+        <div class="tophead_ins">
+          <div class="tophead">
+            <div class="logoblock">
+              <div class="logoblock_ins">
+                <a href="{% url 'home' %}">
+                  <img src="{% static 'images/logo.png' %}" alt="logo" />
+                </a>
+              </div>
+            </div>
+            <div class="topmenu js_menu">
+              <ul id="menu-2" class="hmenu">
+                <div class="ugmenu"></div>
+                <li
+                  id="menu-item-30"
+                  class="
+                    menu-item
+                    menu-item-type-post_type
+                    menu-item-object-page menu-item-home
+                    current-menu-item
+                    page_item page-item-4
+                    current_page_item
+                    first_menu_li
+                    menu-item-30
+                  "
+                >
+                  <a href="https://atchange.net/" aria-current="page"
+                    ><span>Home</span></a
+                  >
+                </li>
+                <li
+                  id="menu-item-32"
+                  class="
+                    menu-item
+                    menu-item-type-post_type
+                    menu-item-object-page menu-item-32
+                  "
+                >
+                  <a href="https://atchange.net/news/"><span>News</span></a>
+                </li>
+                <li
+                  id="menu-item-33"
+                  class="
+                    menu-item
+                    menu-item-type-post_type
+                    menu-item-object-page menu-item-33
+                  "
+                >
+                  <a href="https://atchange.net/reviews/"
+                    ><span>Reviews</span></a
+                  >
+                </li>
+                <li
+                  id="menu-item-176"
+                  class="
+                    menu-item
+                    menu-item-type-post_type
+                    menu-item-object-page menu-item-176
+                  "
+                >
+                  <a href="https://atchange.net/partners/"
+                    ><span>Affiliate</span></a
+                  >
+                </li>
+                <li
+                  id="menu-item-182"
+                  class="
+                    menu-item
+                    menu-item-type-post_type
+                    menu-item-object-page
+                    last_menu_li
+                    menu-item-182
+                  "
+                >
+                  <a href="https://atchange.net/feedback/"
+                    ><span>Contact</span></a
+                  >
+                </li>
+              </ul>
+              <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+          </div>
+        </div>
+      </div>
+      <!-- Main Content -->
+      {% block content %} {% endblock %}
+      <!-- End Main Content -->
+      <!-- footer -->
+      <div class="footer_wrap" style="background: #252927 url({% static 'images/foot.png' %});">
+        <div class="footer">
+          <div class="footer_left">
+            <div class="copyright">
+              <p>&copy; {% now "Y" %} Boy Exchange, All rights reserved</p>
+            </div>
+            <div class="footer_menu">
+              <ul id="menu-3" class="hmenu">
+                <li
+                  id="menu-item-35"
+                  class="
+                    menu-item
+                    menu-item-type-post_type
+                    menu-item-object-page
+                    first_menu_li
+                    menu-item-35
+                  "
+                >
+                  <a href="#"><span>Sitemap</span></a>
+                </li>
+                <li
+                  id="menu-item-36"
+                  class="
+                    menu-item
+                    menu-item-type-post_type
+                    menu-item-object-page menu-item-36
+                  "
+                >
+                  <a href="#"><span>Caution</span></a>
+                </li>
+                <li
+                  id="menu-item-77"
+                  class="
+                    menu-item
+                    menu-item-type-post_type
+                    menu-item-object-page
+                    last_menu_li
+                    menu-item-77
+                  "
+                >
+                  <a href="#"><span>Site rules</span></a>
+                </li>
+              </ul>
+              <div class="clear"></div>
+            </div>
+          </div>
+          <div class="footer_center">
+            <div class="footer_soc">
+              <a href="#" class="social_link" target="_blank" rel="nofollow"
+                ><img src="{% static 'images/vk-ico.png' %}" alt=""
+              /></a>
+              <a
+                href="https://www.facebook.com/sharer/sharer.php?u=https://www.boyexchange.com"
+                class="social_link"
+                target="_blank"
+                rel="nofollow"
+                ><img src="{% static 'images/fb-ico.png' %}" alt=""
+              /></a>
+              <a
+                href="https://twitter.com/share?url=https://www.boyexchange.com"
+                class="social_link"
+                target="_blank"
+                rel="nofollow"
+                ><img src="{% static 'images/tw-ico.png' %}" alt=""
+              /></a>
+              <div class="clear"></div>
+            </div>
+            <a href="#" class="mobile_link" style=" background: url({% static 'images/mobile.png' %}) no-repeat 0 center;">Download Mobile App</a>
+            <div class="clear"></div>
+          </div>
+          <div class="footer_right">
+            <div class="footer_phone" style="background: url({% static 'images/phone.png' %}) no-repeat left center;">
+              <span>+2347000000000</span>
+            </div>
+            <div class="footer_timetable">
+              <p>
+                Mon – Fri 10 a.m. Till 11 p.m.<br />
+                Sat – Sun free time.
+              </p>
+            </div>
+          </div>
+          <div class="clear"></div>
+        </div>
+      </div>
+      <!-- end footer -->
+    </div>
+    <div id="topped" class="js_to_top js_show_top" style="display: none; background: #8f8f8f url({% static 'images/topped.png' %}) no-repeat center center;">
+      <span></span>
+    </div>
+    <div class="statuswork_div status_op0 toleft">
+      <div class="statuswork_div_ins">
+        <div class="statuswork">
+          <div class="statuswork_ins" style="background: url({% static 'images/online.png' %}) no-repeat left center;">
+            <div class="statuswork_title"><span>Operator Online</span></div>
+            <div class="statuswork_date"><span>Live</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
