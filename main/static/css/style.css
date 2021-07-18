@@ -499,7 +499,6 @@ input[type="submit"]:disabled:hover {
 }
 .checkbox {
   cursor: pointer;
-  background: url(images/checkbox.png) no-repeat 0 0px;
   padding: 2px 0 2px 25px;
 }
 .rtl_body .checkbox {
@@ -719,9 +718,6 @@ a.captcha_reload.act {
 }
 .color_r .topbar_icon.skype {
   background: url(images/skype_r.png) no-repeat left center;
-}
-.color_r .topbar_icon.email {
-  background: url(images/email_r.png) no-repeat left center;
 }
 .color_r .topbar_icon.telegram {
   background: url(images/telegram_r.png) no-repeat left center;
@@ -1110,15 +1106,6 @@ a.langlist_li {
   min-height: 73px;
   background: url(images/breadcrumb.png) no-repeat 0px center;
   padding: 18px 0 0 100px;
-}
-.color_y .breadcrumb_ins {
-  background: url(images/breadcrumb_y.png) no-repeat 0px center;
-}
-.color_b .breadcrumb_ins {
-  background: url(images/breadcrumb_b.png) no-repeat 0px center;
-}
-.color_r .breadcrumb_ins {
-  background: url(images/breadcrumb_r.png) no-repeat 0px center;
 }
 .rtl_body .breadcrumb_ins {
   padding: 18px 100px 0 0;
@@ -6452,6 +6439,13 @@ a.mobile_link:hover {
 .select_js_title_ins {
   padding: 0 30px 0 20px;
   font: 18px/50px "Open Sans", sans-serif;
+}
+.text_higlight {
+  padding-left: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: #2d3e50;
+  border-radius: 8px;
 }
 .rtl_body .select_js_title_ins {
   padding: 0 20px 0 30px;

@@ -6,7 +6,6 @@
     <link rel="profile" href="https://gmpg.org/xfn/11" />
     <title>{% block title %} Boy XChange - Home {% endblock %}</title>
     <link rel="dns-prefetch" href="https://fonts.googleapis.com/" />
-    <link rel="dns-prefetch" href="https://s.w.org/" />
     <link
       rel="stylesheet"
       id="premium-all-style-css"
@@ -28,15 +27,15 @@
       type="text/css"
       media="all"
     />
-    <link
+    <!-- <link
       rel="stylesheet"
       id="wp-block-library-css"
       href="{% static 'css/style.min.css' %}"
       type="text/css"
       media="all"
-    />
+    /> -->
     <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/jqueryui.js' %}"></script>
+    <!-- <script type="text/javascript" src="{% static 'js/jqueryui.js' %}"></script>
     <script
       type="text/javascript"
       src="{% static 'js/script.min(2).js' %}"
@@ -64,23 +63,32 @@
     <script
       type="text/javascript"
       src="{% static 'js/script.min(7).js' %}"
-    ></script>
+    ></script> -->
     <script type="text/javascript" src="{% static 'js/site.js' %}"></script>
-    <script
+    <!-- <script
       type="text/javascript"
       src="{% static 'js/script.min(8).js' %}"
     ></script>
     <script
       type="text/javascript"
       src="{% static 'js/jqueryqrcode.js' %}"
-    ></script>
+    ></script> -->
+    <script>
+    var mtcaptchaConfig = {
+      "sitekey": "MTPublic-qPdyD4iMZ",
+      "widgetSize": "mini",
+      
+     };
+   (function(){var mt_service = document.createElement('script');mt_service.async = true;mt_service.src = 'https://service.mtcaptcha.com/mtcv1/client/mtcaptcha.min.js';(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(mt_service);
+   var mt_service2 = document.createElement('script');mt_service2.async = true;mt_service2.src = 'https://service2.mtcaptcha.com/mtcv1/client/mtcaptcha2.min.js';(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(mt_service2);}) ();
+ </script>
     <script
       type="text/javascript"
-      src="{% static 'js/premium_script.js' %}"
+      src="{% static 'js/script.js' %}"
     ></script>
     <meta
       name="keywords"
-      content="PM Exchange,PM Exchanger,PerfectMoney(PM) Exchange,BuyPM, ExchangePM,SellPM,PAYEER Exchanger,PAYEER Exchange,Buy PAYEER, Exchange PAYEER,Sell PAYEER,BTC Exchange,BTC Exchanger,Bitcoin(BTC) Exchange,Buy BTC, Exchange BTC,Sell BTC,ADVCASH Exchange,ADVCASH Exchanger,ADVCASH(ADV) Exchange,Buy ADVCASH, Exchange ADVCASH,Sell ADVCASH"
+      content="Boy Exchange,Bitcoin BTC Exchanger,USD Exchanger,Ether Exchanger, Naira Exchanger,BTC Exchange,BTC Exchanger,Bitcoin(BTC) Exchange,Buy BTC, Exchange BTC,Sell BTC"
     />
     <meta name="description" content="" />
     <meta property="og:type" content="website" />
@@ -146,13 +154,10 @@
               </div>
             </div>
             <div class="topbar_icon icq" style="background: url({% static 'images/icq.png' %}) no-repeat left center;">+2348000000000</div>
-            <div class="topbar_icon email">
+            <div class="topbar_icon email" style="  background: url({% static 'images/email.png' %}) no-repeat left center;">
               <a href="mailto:info@boyxchange.com">info@boyxchange.com</a>
             </div>
-            <a href="#" class="toplink toplink_signup js_window_join"
-              >Sign up</a
-            >
-            <a href="#" class="toplink toplink_signin js_window_login"
+            <a href="/admin/" class="toplink toplink_signin"
               >Sign in</a
             >
             <div class="clear"></div>
@@ -187,7 +192,7 @@
                     menu-item-30
                   "
                 >
-                  <a href="https://atchange.net/" aria-current="page"
+                  <a href="{% url 'home' %}" aria-current="page"
                     ><span>Home</span></a
                   >
                 </li>
@@ -199,7 +204,7 @@
                     menu-item-object-page menu-item-32
                   "
                 >
-                  <a href="https://atchange.net/news/"><span>News</span></a>
+                  <a href="{% url 'news' %}"><span>News</span></a>
                 </li>
                 <li
                   id="menu-item-33"
@@ -209,7 +214,7 @@
                     menu-item-object-page menu-item-33
                   "
                 >
-                  <a href="https://atchange.net/reviews/"
+                  <a href="{% url 'reviews' %}"
                     ><span>Reviews</span></a
                   >
                 </li>
@@ -221,22 +226,8 @@
                     menu-item-object-page menu-item-176
                   "
                 >
-                  <a href="https://atchange.net/partners/"
+                  <a href="#"
                     ><span>Affiliate</span></a
-                  >
-                </li>
-                <li
-                  id="menu-item-182"
-                  class="
-                    menu-item
-                    menu-item-type-post_type
-                    menu-item-object-page
-                    last_menu_li
-                    menu-item-182
-                  "
-                >
-                  <a href="https://atchange.net/feedback/"
-                    ><span>Contact</span></a
                   >
                 </li>
               </ul>

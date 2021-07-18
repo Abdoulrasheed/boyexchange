@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} News {% endblock %}
+
+{% block content %}
+<div class="content_wrap">
+   <div class="content">
+      <div class="many_news_wrap">
+         <div class="many_news">
+             {% for item in news %}
+                <div class="one_news" itemtype="https://schema.org/NewsArticle">
+                <meta itemprop="author" content="BoyeXchange.com">
+                <meta itemprop="headline" content="{{ item.title }}">
+                <meta itemprop="dateModified" content="{{ item.timestamp|date:"DATETIME_FORMAT" }}">
+                <div style="display: none;" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+                    <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+                        <meta itemprop="image" content="{% static 'images/logo.png' %}">
+                        <a href="{% static 'images/logo.png' %}" style="display: none;" itemprop="url"></a>
+                    </div>
+                    <meta itemprop="name" content="BoyeXchange.com">
+                    <meta itemprop="address" content="">
+                    <meta itemprop="telephone" content="">
+                </div>
+                <h2 class="one_news_title">
+                    <a href="#" rel="bookmark" title="{{ item.title }}"><span itemprop="name">{{ item.title }}</span></a>
+                </h2>
+                <div class="one_news_date" itemprop="datePublished" content="{{ item.timestamp|date:"DATETIME_FORMAT" }}">
+                    {{ item.timestamp|date:"DATETIME_FORMAT" }}			
+                </div>
+                <div class="clear"></div>
+                <div class="one_news_excerpt">
+                    <div class="text" itemprop="articleBody">
+                        <p>{{ item.title }}</p>
+                        <p>
+                            {{ item.item }}
+                        </p>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="metabox_div">
+                    <div class="metabox_left">
+                        <div class="metabox_cats">
+                            <span>Published by:</span> <span itemprop="articleSection"><a href="#" rel="tag">Admin</a></span>						
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                </div>
+            {% empty %}
+                <div class="one_news" itemtype="https://schema.org/NewsArticle">
+                    <p>No items</p>
+                </div>
+            {% endfor %}
+         </div>
+      </div>
+   </div>
+   <div class="clear"></div>
+</div>
+</div>
+{% endblock %}

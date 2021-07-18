@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% load static extra_tags %}
 <p>
     {% block title %} Exchange {{ exchange.currency }} for {{ exchange.pair }}
     {% endblock %}
@@ -7,7 +7,13 @@
 <div class="wrapper">
     <div class="breadcrumb_wrap">
         <div class="breadcrumb_div">
-            <div class="breadcrumb_ins">
+            <div
+                class="breadcrumb_ins"
+                style="
+                    background: url({%static'images/breadcrumb_r.png'%})
+                        no-repeat 0px center;
+                "
+            >
                 <h1 class="breadcrumb_title" id="the_title_page">
                     Exchange
                     <span style="color: blue">{{ exchange.currency }}</span>
@@ -25,7 +31,7 @@
                             itemscope=""
                             itemtype="https://schema.org/ListItem"
                         >
-                            <a href="https://atchange.net/" itemprop="item">
+                            <a href="https://BoyExchange.com/" itemprop="item">
                                 <span itemprop="name">Currency exchange</span>
                             </a>
                             <meta itemprop="position" content="1" />
@@ -38,24 +44,19 @@
     </div>
     <div class="content_wrap">
         <div class="content">
-            <form
-                method="post"
-                class="ajax_post_bids"
-                action="https://atchange.net/premium_action-bidsform.html?meth=post&amp;yid=1ed258dc1d44&amp;ynd=0&amp;lang=en"
-            >
+            <form id="submit-form" action="{% url 'payment'  %}" method="post">
+                {% csrf_token %}
+                <input hidden id="xchange_id" value="{{ exchange.pk }}" />
                 <div class="exch_ajax_wrap">
                     <div class="exch_ajax_wrap_abs"></div>
                     <div id="exch_html">
-                        <input
-                            type="hidden"
-                            name="direction_id"
-                            class="js_direction_id"
-                            value="46"
-                        />
                         <div class="notice_message">
                             <div
                                 class="notice_message_ins"
-                                style="background: url({% static 'images/notice_message_r.png' %}) no-repeat 0px 0px;"
+                                style="
+                                    background: url({%static'images/notice_message_r.png'%})
+                                        no-repeat 0px 0px;
+                                "
                             >
                                 <div class="notice_message_abs"></div>
                                 <div class="notice_message_close"></div>
@@ -72,8 +73,8 @@
                                                 performed by the operator in
                                                 manual mode and takes 5 to 30
                                                 minutes during working hours
-                                                (daily from 9:00 to 23:00
-                                                BJ).</span
+                                                (daily from 9:00am to
+                                                11:00pm).</span
                                             >
                                         </p>
                                     </div>
@@ -82,9 +83,16 @@
                         </div>
                         <div class="xchange_div">
                             <div class="xchange_div_ins">
-                                <div class="xchange_data_title give" style="background: url({% static 'images/right-arr.png' %}) no-repeat right center;">
+                                <div class="xchange_data_title give">
                                     <div class="xchange_data_title_ins">
                                         <span>Send</span>
+                                        <span
+                                            style="
+                                                background-image: url({%static'images/harr.png'%});
+                                                background-size: 25px;
+                                                background-repeat: no-repeat;
+                                            "
+                                        ></span>
                                     </div>
                                 </div>
                                 <div class="xchange_data_div">
@@ -99,17 +107,33 @@
                                                 <p class="span_give_max">
                                                     min.:
                                                     <span
-                                                        class="js_amount"
+                                                        class="
+                                                            js_amount
+                                                            send_amount
+                                                        "
                                                         data-id="sum1"
-                                                        >60</span
+                                                        style="color: blue"
+                                                        >{{
+                                                        exchange.currency.min_price
+                                                        }}</span
                                                     >
-                                                    CNY, max.:
+                                                    {{
+                                                    exchange.currency.short_name
+                                                    }}, max.:
                                                     <span
-                                                        class="js_amount"
+                                                        class="
+                                                            js_amount
+                                                            send_amount
+                                                        "
+                                                        style="color: blue"
                                                         data-id="sum1"
-                                                        >200000</span
+                                                        >{{
+                                                        exchange.currency.max_price
+                                                        }}</span
                                                     >
-                                                    CNY
+                                                    {{
+                                                    exchange.currency.short_name
+                                                    }}
                                                 </p>
                                             </div>
                                         </div>
@@ -123,51 +147,6 @@
                                                         height: 50px;
                                                     "
                                                 >
-                                                    <select
-                                                        name=""
-                                                        class="js_my_sel jsw"
-                                                        autocomplete="off"
-                                                        id="select_give"
-                                                        style="height: 50px"
-                                                    >
-                                                        <option
-                                                            value="5"
-                                                            data-img="/wp-content/uploads/Advcash.png"
-                                                        >
-                                                            Advcash USD
-                                                        </option>
-                                                        <option
-                                                            value="24"
-                                                            data-img="/wp-content/uploads/Advcash.png"
-                                                        >
-                                                            Advcash EUR
-                                                        </option>
-                                                        <option
-                                                            value="1"
-                                                            data-img="/wp-content/uploads/Perfect-Money.png"
-                                                        >
-                                                            Perfect Money USD
-                                                        </option>
-                                                        <option
-                                                            value="10"
-                                                            selected="selected"
-                                                            data-img="https://atchange.net/wp-content/uploads/Alipay-1.png"
-                                                        >
-                                                            Alipay CNY
-                                                        </option>
-                                                        <option
-                                                            value="8"
-                                                            data-img="/wp-content/uploads/Perfect-Money.png"
-                                                        >
-                                                            Perfect Money EUR
-                                                        </option>
-                                                        <option
-                                                            value="7"
-                                                            data-img="/wp-content/uploads/Payeer.png"
-                                                        >
-                                                            Payeer USD
-                                                        </option>
-                                                    </select>
                                                     <div
                                                         class="select_js_title"
                                                     >
@@ -181,16 +160,18 @@
                                                                     select_ico
                                                                     currency_logo
                                                                 "
-                                                                style="
-                                                                    background-image: url(https://atchange.net/wp-content/uploads/Alipay-1.png);
-                                                                "
+                                                                style="background-image: url({{ exchange.currency.get_logo }});"
                                                             ></div>
                                                             <div
                                                                 class="
                                                                     select_txt
                                                                 "
                                                             >
-                                                                Alipay CNY
+                                                                {{
+                                                                exchange.currency.name
+                                                                }} ({{
+                                                                exchange.currency
+                                                                }})
                                                             </div>
                                                             <div
                                                                 style="
@@ -198,223 +179,19 @@
                                                                 "
                                                             ></div>
                                                             <div
-                                                                style="background: url({% static 'images/jsel_r.png' %}) no-repeat center center;"
-                                                                class="select_js_abs"
+                                                                class="
+                                                                    select_js_abs
+                                                                "
                                                             ></div>
                                                         </div>
                                                         <div
                                                             style="clear: both"
                                                         ></div>
                                                     </div>
-                                                    <div
-                                                        class="select_js_ul"
-                                                        style="display: none"
-                                                    >
-                                                        <div
-                                                            class="
-                                                                select_js_ul_ins
-                                                            "
-                                                        >
-                                                            <div
-                                                                class="
-                                                                    select_js_ulli
-                                                                "
-                                                                data-value="5"
-                                                            >
-                                                                <div
-                                                                    class="
-                                                                        select_ico
-                                                                        currency_logo
-                                                                    "
-                                                                    style="
-                                                                        background-image: url(/wp-content/uploads/Advcash.png);
-                                                                    "
-                                                                ></div>
-                                                                <div
-                                                                    class="
-                                                                        select_txt
-                                                                    "
-                                                                >
-                                                                    Advcash USD
-                                                                </div>
-                                                                <div
-                                                                    style="background: url({% static 'images/jsel_r.png' %}) no-repeat center center;"
-                                                                    class="select_js_abs"
-                                                                ></div>
-                                                                <div
-                                                                    style="
-                                                                        clear: both;
-                                                                    "
-                                                                ></div>
-                                                            </div>
-                                                            <div
-                                                                class="
-                                                                    select_js_ulli
-                                                                "
-                                                                data-value="24"
-                                                            >
-                                                                <div
-                                                                    class="
-                                                                        select_ico
-                                                                        currency_logo
-                                                                    "
-                                                                    style="
-                                                                        background-image: url(/wp-content/uploads/Advcash.png);
-                                                                    "
-                                                                ></div>
-                                                                <div
-                                                                    class="
-                                                                        select_txt
-                                                                    "
-                                                                >
-                                                                    Advcash EUR
-                                                                </div>
-                                                                <div
-                                                                    style="background: url({% static 'images/jsel_r.png' %}) no-repeat center center;"
-                                                                    class="select_js_abs"
-                                                                ></div>
-                                                                <div
-                                                                    style="
-                                                                        clear: both;
-                                                                    "
-                                                                ></div>
-                                                            </div>
-                                                            <div
-                                                                class="
-                                                                    select_js_ulli
-                                                                "
-                                                                data-value="1"
-                                                            >
-                                                                <div
-                                                                    class="
-                                                                        select_ico
-                                                                        currency_logo
-                                                                    "
-                                                                    style="
-                                                                        background-image: url(/wp-content/uploads/Perfect-Money.png);
-                                                                    "
-                                                                ></div>
-                                                                <div
-                                                                    class="
-                                                                        select_txt
-                                                                    "
-                                                                >
-                                                                    Perfect
-                                                                    Money USD
-                                                                </div>
-                                                                <div
-                                                                    style="background: url({% static 'images/jsel_r.png' %}) no-repeat center center;"
-                                                                    class="select_js_abs"
-                                                                ></div>
-                                                                <div
-                                                                    style="
-                                                                        clear: both;
-                                                                    "
-                                                                ></div>
-                                                            </div>
-                                                            <div
-                                                                class="
-                                                                    select_js_ulli
-                                                                    active
-                                                                "
-                                                                data-value="10"
-                                                            >
-                                                                <div
-                                                                    class="
-                                                                        select_ico
-                                                                        currency_logo
-                                                                    "
-                                                                    style="
-                                                                        background-image: url(https://atchange.net/wp-content/uploads/Alipay-1.png);
-                                                                    "
-                                                                ></div>
-                                                                <div
-                                                                    class="
-                                                                        select_txt
-                                                                    "
-                                                                >
-                                                                    Alipay CNY
-                                                                </div>
-                                                                <div
-                                                                    style="background: url({% static 'images/jsel_r.png' %}) no-repeat center center;"
-                                                                    class="select_js_abs"
-                                                                ></div>
-                                                                <div
-                                                                    style="
-                                                                        clear: both;
-                                                                    "
-                                                                ></div>
-                                                            </div>
-                                                            <div
-                                                                class="
-                                                                    select_js_ulli
-                                                                "
-                                                                data-value="8"
-                                                            >
-                                                                <div
-                                                                    class="
-                                                                        select_ico
-                                                                        currency_logo
-                                                                    "
-                                                                    style="
-                                                                        background-image: url(/wp-content/uploads/Perfect-Money.png);
-                                                                    "
-                                                                ></div>
-                                                                <div
-                                                                    class="
-                                                                        select_txt
-                                                                    "
-                                                                >
-                                                                    Perfect
-                                                                    Money EUR
-                                                                </div>
-                                                                <div
-                                                                    style="background: url({% static 'images/jsel_r.png' %}) no-repeat center center;"
-                                                                    class="select_js_abs"
-                                                                ></div>
-                                                                <div
-                                                                    style="
-                                                                        clear: both;
-                                                                    "
-                                                                ></div>
-                                                            </div>
-                                                            <div
-                                                                class="
-                                                                    select_js_ulli
-                                                                "
-                                                                data-value="7"
-                                                            >
-                                                                <div
-                                                                    class="
-                                                                        select_ico
-                                                                        currency_logo
-                                                                    "
-                                                                    style="
-                                                                        background-image: url(/wp-content/uploads/Payeer.png);
-                                                                    "
-                                                                ></div>
-                                                                <div
-                                                                    class="
-                                                                        select_txt
-                                                                    "
-                                                                >
-                                                                    Payeer USD
-                                                                </div>
-                                                                <div
-                                                                    style="background: url({% static 'images/jsel_r.png' %}) no-repeat center center;"
-                                                                    class="select_js_abs"
-                                                                ></div>
-                                                                <div
-                                                                    style="
-                                                                        clear: both;
-                                                                    "
-                                                                ></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="xchange_data_right">
                                             <div class="xchange_sum_line">
                                                 <div class="xchange_sum_label">
@@ -427,184 +204,35 @@
                                                         xchange_sum_input
                                                         js_wrap_error
                                                         js_wrap_error_br
-                                                        error
                                                     "
                                                 >
                                                     <input
-                                                        type="text"
-                                                        name="sum1"
+                                                        type="hidden"
+                                                        value="{{ exchange.pk }}"
+                                                        name="pair"
+                                                    />
+                                                    <input
+                                                        required
+                                                        max="{{ exchange.currency.max_price }}"
+                                                        min="{{ exchange.currency.min_price }}"
+                                                        type="float"
+                                                        name="coin_amount"
                                                         autocomplete="off"
-                                                        cash-id="sum"
-                                                        data-decimal="4"
+                                                        id="amount_to_send"
+                                                        data-decimal="2"
                                                         class="
                                                             js_decimal js_sum1
                                                             cache_data
                                                         "
-                                                        value="1"
                                                     />
                                                     <div
-                                                        class="
-                                                            js_error
-                                                            js_sum1_error
-                                                        "
+                                                        hidden
+                                                        class="h-loader-send"
                                                     >
-                                                        min.:
-                                                        <span
-                                                            class="js_amount"
-                                                            data-id="sum1"
-                                                            >60</span
-                                                        >
-                                                        CNY
-                                                    </div>
-                                                </div>
-                                                <div class="clear"></div>
-                                            </div>
-                                        </div>
-                                        <div class="clear"></div>
-                                        <div class="xchange_data_left">
-                                            <div
-                                                class="
-                                                    xchange_sumandcom
-                                                    js_viv_com1
-                                                "
-                                                style="display: none"
-                                            >
-                                                <span
-                                                    class="js_comis_text1"
-                                                ></span>
-                                            </div>
-                                        </div>
-                                        <div class="xchange_data_right">
-                                            <div
-                                                class="
-                                                    xchange_sum_line
-                                                    js_viv_com1
-                                                "
-                                                style="display: none"
-                                            >
-                                                <div class="xchange_sum_label">
-                                                    Amount<span class="req"
-                                                        >*</span
-                                                    >:
-                                                </div>
-                                                <div
-                                                    class="
-                                                        xchange_sum_input
-                                                        js_wrap_error
-                                                        js_wrap_error_br
-                                                    "
-                                                >
-                                                    <input
-                                                        type="text"
-                                                        name=""
-                                                        autocomplete="off"
-                                                        class="
-                                                            js_decimal js_sum1c
-                                                        "
-                                                        data-decimal="4"
-                                                        value="1"
-                                                    />
-                                                    <div
-                                                        class="
-                                                            js_error
-                                                            js_sum1c_error
-                                                        "
-                                                    ></div>
-                                                </div>
-                                                <div class="clear"></div>
-                                            </div>
-                                        </div>
-                                        <div class="clear"></div>
-                                        <div class="xchange_data_left">
-                                            <div class="xchange_curs_line">
-                                                <div
-                                                    class="
-                                                        xchange_curs_line_ins
-                                                    "
-                                                >
-                                                    <div
-                                                        class="
-                                                            xchange_curs_label
-                                                        "
-                                                    >
-                                                        <div
-                                                            class="
-                                                                xchange_curs_label_ins
-                                                            "
-                                                        >
-                                                            <label
-                                                                for="account1"
-                                                            >
-                                                                <span
-                                                                    class="
-                                                                        xchange_label
-                                                                    "
-                                                                    >From Your
-                                                                    Alipay
-                                                                    account<span
-                                                                        class="
-                                                                            req
-                                                                        "
-                                                                        >*</span
-                                                                    >:
-                                                                    <span
-                                                                        class="
-                                                                            help_tooltip_label
-                                                                        "
-                                                                    ></span
-                                                                ></span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="
-                                                        xchange_curs_input
-                                                        js_wrap_error
-                                                        js_wrap_error_br
-                                                        js_window_wrap
-                                                    "
-                                                >
-                                                    <input
-                                                        type="text"
-                                                        name="account1"
-                                                        cash-id="account10"
-                                                        id="account1"
-                                                        class="
-                                                            js_account1 js_help
-                                                            cache_data
-                                                            check_cache
-                                                        "
-                                                        placeholder=""
-                                                        value=""
-                                                    />
-                                                    <div
-                                                        class="
-                                                            js_error
-                                                            js_account1_error
-                                                        "
-                                                    ></div>
-                                                    <div
-                                                        class="
-                                                            info_window
-                                                            js_window
-                                                        "
-                                                    >
-                                                        <div
-                                                            class="
-                                                                info_window_ins
-                                                            "
-                                                        >
-                                                            <div
-                                                                style="background: url({% static 'images/ug_r.png' %}) no-repeat;"
-                                                                class="info_window_abs"
-                                                            ></div>
-                                                            <p>
-                                                                email：XXXXXX@gmail.com<br />
-                                                                or phone
-                                                                number：186XXXXXXXX
-                                                            </p>
-                                                        </div>
+                                                        <img
+                                                            src="{% static 'images/h-loader.gif' %}"
+                                                            width="150"
+                                                        />
                                                     </div>
                                                 </div>
                                                 <div class="clear"></div>
@@ -613,9 +241,19 @@
                                         <div class="clear"></div>
                                     </div>
                                 </div>
-                                <div class="xchange_data_title get" style="background: url({% static 'images/left-arr.png' %}) no-repeat right center;">
+                                <div
+                                    style="margin-top: 50px"
+                                    class="xchange_data_title get"
+                                >
                                     <div class="xchange_data_title_ins">
                                         <span>Receive</span>
+                                        <span
+                                            style="
+                                                background-image: url({%static'images/left-arr.png'%});
+                                                background-size: 25px;
+                                                background-repeat: no-repeat;
+                                            "
+                                        ></span>
                                     </div>
                                 </div>
                                 <div class="xchange_data_div">
@@ -627,945 +265,899 @@
                                         </div>
                                         <div class="xchange_data_right">
                                             <div class="xchange_info_line">
-                                                <p class="span_get_max">
+                                                <p class="span_give_max">
                                                     min.:
                                                     <span
-                                                        class="js_amount"
-                                                        data-id="sum2"
-                                                        >10</span
+                                                        class="
+                                                            js_amount
+                                                            receive_amount
+                                                        "
+                                                        data-id="sum1"
+                                                        style="color: blue"
+                                                        >{{
+                                                        exchange.currency.min_price
+                                                        }}</span
                                                     >
-                                                    USD, max.:
+                                                    {{
+                                                    exchange.currency.short_name
+                                                    }}, max.:
                                                     <span
-                                                        class="js_amount"
-                                                        data-id="sum2"
-                                                        >3925.7</span
+                                                        class="
+                                                            js_amount
+                                                            receive_amount
+                                                        "
+                                                        style="color: blue"
+                                                        data-id="sum1"
+                                                        >{{
+                                                        exchange.pair.max_price
+                                                        }}</span
                                                     >
-                                                    USD
+                                                    {{ exchange.pair.short_name
+                                                    }}
                                                 </p>
                                             </div>
                                         </div>
-                                        <div class="clear"></div>
-                                        <div class="xchange_data_left">
-                                            <div class="xchange_select">
-                                                <div
-                                                    class="select_js iselect_js"
-                                                    style="
-                                                        width: 340px;
-                                                        height: 50px;
-                                                    "
-                                                >
-                                                    <select
-                                                        name=""
-                                                        class="js_my_sel jsw"
-                                                        autocomplete="off"
-                                                        id="select_get"
-                                                        style="height: 50px"
-                                                    >
-                                                        <option
-                                                            value="1"
-                                                            data-img="/wp-content/uploads/Perfect-Money.png"
-                                                        >
-                                                            Perfect Money USD
-                                                        </option>
-                                                        <option
-                                                            value="8"
-                                                            data-img="/wp-content/uploads/Perfect-Money.png"
-                                                        >
-                                                            Perfect Money EUR
-                                                        </option>
-                                                        <option
-                                                            value="10"
-                                                            data-img="https://atchange.net/wp-content/uploads/Alipay-1.png"
-                                                        >
-                                                            Alipay CNY
-                                                        </option>
-                                                        <option
-                                                            value="5"
-                                                            data-img="/wp-content/uploads/Advcash.png"
-                                                        >
-                                                            Advcash USD
-                                                        </option>
-                                                        <option
-                                                            value="7"
-                                                            selected="selected"
-                                                            data-img="/wp-content/uploads/Payeer.png"
-                                                        >
-                                                            Payeer USD
-                                                        </option>
-                                                    </select>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="xchange_data_left">
+                                        <div class="xchange_select">
+                                            <div
+                                                class="select_js iselect_js"
+                                                style="
+                                                    width: 340px;
+                                                    height: 50px;
+                                                "
+                                            >
+                                                <div class="select_js_title">
                                                     <div
-                                                        class="select_js_title"
+                                                        class="
+                                                            select_js_title_ins
+                                                        "
                                                     >
                                                         <div
                                                             class="
-                                                                select_js_title_ins
+                                                                select_ico
+                                                                currency_logo
                                                             "
-                                                        >
-                                                            <div
-                                                                class="
-                                                                    select_ico
-                                                                    currency_logo
-                                                                "
-                                                                style="
-                                                                    background-image: url(/wp-content/uploads/Payeer.png);
-                                                                "
-                                                            ></div>
-                                                            <div
-                                                                class="
-                                                                    select_txt
-                                                                "
-                                                            >
-                                                                Payeer USD
-                                                            </div>
-                                                            <div
-                                                                style="
-                                                                    clear: both;
-                                                                "
-                                                            ></div>
-                                                            <div
-                                                                style="background: url({% static 'images/jsel_r.png' %}) no-repeat center center;"
-                                                                class="select_js_abs"
-                                                            ></div>
+                                                            style="background-image: url({{ exchange.pair.get_logo }});"
+                                                        ></div>
+                                                        <div class="select_txt">
+                                                            {{
+                                                            exchange.pair.name
+                                                            }} ({{
+                                                            exchange.pair.short_name
+                                                            }})
                                                         </div>
                                                         <div
                                                             style="clear: both"
                                                         ></div>
                                                     </div>
                                                     <div
-                                                        class="select_js_ul"
-                                                        style="display: none"
-                                                    >
-                                                        <div
-                                                            class="
-                                                                select_js_ul_ins
-                                                            "
-                                                        >
-                                                            <div
-                                                                class="
-                                                                    select_js_ulli
-                                                                "
-                                                                data-value="1"
-                                                            >
-                                                                <div
-                                                                    class="
-                                                                        select_ico
-                                                                        currency_logo
-                                                                    "
-                                                                    style="
-                                                                        background-image: url(/wp-content/uploads/Perfect-Money.png);
-                                                                    "
-                                                                ></div>
-                                                                <div
-                                                                    class="
-                                                                        select_txt
-                                                                    "
-                                                                >
-                                                                    Perfect
-                                                                    Money USD
-                                                                </div>
-                                                                <div
-                                                                    style="background: url({% static 'images/jsel_r.png' %}) no-repeat center center;"
-                                                                    class="select_js_abs"
-                                                                ></div>
-                                                                <div
-                                                                    style="
-                                                                        clear: both;
-                                                                    "
-                                                                ></div>
-                                                            </div>
-                                                            <div
-                                                                class="
-                                                                    select_js_ulli
-                                                                "
-                                                                data-value="8"
-                                                            >
-                                                                <div
-                                                                    class="
-                                                                        select_ico
-                                                                        currency_logo
-                                                                    "
-                                                                    style="
-                                                                        background-image: url(/wp-content/uploads/Perfect-Money.png);
-                                                                    "
-                                                                ></div>
-                                                                <div
-                                                                    class="
-                                                                        select_txt
-                                                                    "
-                                                                >
-                                                                    Perfect
-                                                                    Money EUR
-                                                                </div>
-                                                                <div
-                                                                    style="background: url({% static 'images/jsel_r.png' %}) no-repeat center center;"
-                                                                    class="select_js_abs"
-                                                                ></div>
-                                                                <div
-                                                                    style="
-                                                                        clear: both;
-                                                                    "
-                                                                ></div>
-                                                            </div>
-                                                            <div
-                                                                class="
-                                                                    select_js_ulli
-                                                                "
-                                                                data-value="10"
-                                                            >
-                                                                <div
-                                                                    class="
-                                                                        select_ico
-                                                                        currency_logo
-                                                                    "
-                                                                    style="
-                                                                        background-image: url(https://atchange.net/wp-content/uploads/Alipay-1.png);
-                                                                    "
-                                                                ></div>
-                                                                <div
-                                                                    class="
-                                                                        select_txt
-                                                                    "
-                                                                >
-                                                                    Alipay CNY
-                                                                </div>
-                                                                <div
-                                                                    style="background: url({% static 'images/jsel_r.png' %}) no-repeat center center;"
-                                                                    class="select_js_abs"
-                                                                ></div>
-                                                                <div
-                                                                    style="
-                                                                        clear: both;
-                                                                    "
-                                                                ></div>
-                                                            </div>
-                                                            <div
-                                                                class="
-                                                                    select_js_ulli
-                                                                "
-                                                                data-value="5"
-                                                            >
-                                                                <div
-                                                                    class="
-                                                                        select_ico
-                                                                        currency_logo
-                                                                    "
-                                                                    style="
-                                                                        background-image: url(/wp-content/uploads/Advcash.png);
-                                                                    "
-                                                                ></div>
-                                                                <div
-                                                                    class="
-                                                                        select_txt
-                                                                    "
-                                                                >
-                                                                    Advcash USD
-                                                                </div>
-                                                                <div
-                                                                    style="background: url({% static 'images/jsel_r.png' %}) no-repeat center center;"
-                                                                    class="select_js_abs"
-                                                                ></div>
-                                                                <div
-                                                                    style="
-                                                                        clear: both;
-                                                                    "
-                                                                ></div>
-                                                            </div>
-                                                            <div
-                                                                class="
-                                                                    select_js_ulli
-                                                                    active
-                                                                "
-                                                                data-value="7"
-                                                            >
-                                                                <div
-                                                                    class="
-                                                                        select_ico
-                                                                        currency_logo
-                                                                    "
-                                                                    style="
-                                                                        background-image: url(/wp-content/uploads/Payeer.png);
-                                                                    "
-                                                                ></div>
-                                                                <div class="select_txt">
-                                                                    Payeer USD
-                                                                </div>
-                                                                <div
-                                                                    style="background: url({% static 'images/jsel_r.png' %}) no-repeat center center;"
-                                                                    class="select_js_abs"
-                                                                ></div>
-                                                                <div
-                                                                    style="clear: both;"
-                                                                ></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="xchange_data_right">
-                                            <div class="xchange_sum_line">
-                                                <div class="xchange_sum_label">Amount<span class="req">*</span>:</div>
-                                                <div
-                                                    class="
-                                                        xchange_sum_input
-                                                        js_wrap_error
-                                                        js_wrap_error_br
-                                                        error
-                                                    "
-                                                >
-                                                    <input
-                                                        type="text"
-                                                        name=""
-                                                        autocomplete="off"
-                                                        class="
-                                                            js_decimal js_sum2
-                                                        "
-                                                        data-decimal="4"
-                                                        value="0.143"
-                                                    />
-                                                    <div
-                                                        class="
-                                                            js_error
-                                                            js_sum2_error
-                                                        "
-                                                    >
-                                                        min.:
-                                                        <span
-                                                            class="js_amount"
-                                                            data-id="sum2"
-                                                            >10</span
-                                                        >
-                                                        USD
-                                                    </div>
-                                                </div>
-                                                <div class="clear"></div>
-                                            </div>
-                                        </div>
-                                        <div class="clear"></div>
-                                        <div class="xchange_data_left">
-                                            <div
-                                                class="
-                                                    xchange_sumandcom
-                                                    js_viv_com2
-                                                "
-                                            >
-                                                <span class="js_comis_text2"
-                                                    >Including payment system
-                                                    fees Payeer (0.0014 USD) ,
-                                                    you receive</span
-                                                >
-                                            </div>
-                                        </div>
-                                        <div class="xchange_data_right">
-                                            <div
-                                                class="
-                                                    xchange_sum_line
-                                                    js_viv_com2
-                                                "
-                                            >
-                                                <div class="xchange_sum_label">
-                                                    Amount<span class="req"
-                                                        >*</span
-                                                    >:
-                                                </div>
-                                                <div
-                                                    class="
-                                                        xchange_sum_input
-                                                        js_wrap_error
-                                                        js_wrap_error_br
-                                                    "
-                                                >
-                                                    <input
-                                                        type="text"
-                                                        name=""
-                                                        autocomplete="off"
-                                                        class="
-                                                            js_decimal js_sum2c
-                                                        "
-                                                        data-decimal="4"
-                                                        value="0.1416"
-                                                    />
-                                                    <div
-                                                        class="
-                                                            js_error
-                                                            js_sum2c_error
-                                                        "
+                                                        style="clear: both"
                                                     ></div>
                                                 </div>
-                                                <div class="clear"></div>
-                                            </div>
-                                        </div>
-                                        <div class="clear"></div>
-                                        <div class="xchange_data_left">
-                                            <div class="xchange_curs_line">
-                                                <div
-                                                    class="
-                                                        xchange_curs_line_ins
-                                                    "
-                                                >
-                                                    <div
-                                                        class="
-                                                            xchange_curs_label
-                                                        "
-                                                    >
-                                                        <div
-                                                            class="
-                                                                xchange_curs_label_ins
-                                                            "
-                                                        >
-                                                            <label
-                                                                for="account2"
-                                                            >
-                                                                <span
-                                                                    class="
-                                                                        xchange_label
-                                                                    "
-                                                                    >Into
-                                                                    account<span
-                                                                        class="
-                                                                            req
-                                                                        "
-                                                                        >*</span
-                                                                    >:
-                                                                    <span
-                                                                        class="
-                                                                            help_tooltip_label
-                                                                        "
-                                                                    ></span
-                                                                ></span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="
-                                                        xchange_curs_input
-                                                        js_wrap_error
-                                                        js_wrap_error_br
-                                                        js_window_wrap
-                                                    "
-                                                >
-                                                    <input
-                                                        type="text"
-                                                        name="account2"
-                                                        cash-id="account7"
-                                                        id="account2"
-                                                        class="
-                                                            js_account2 js_help
-                                                            cache_data
-                                                            check_cache
-                                                        "
-                                                        placeholder=""
-                                                        value=""
-                                                    />
-                                                    <div
-                                                        class="
-                                                            js_error
-                                                            js_account2_error
-                                                        "
-                                                    ></div>
-                                                    <div
-                                                        class="
-                                                            info_window
-                                                            js_window
-                                                        "
-                                                    >
-                                                        <div
-                                                            class="
-                                                                info_window_ins
-                                                            "
-                                                        >
-                                                            <div
-                                                                style="background: url({% static 'images/ug_r.png' %}) no-repeat;"
-                                                                class="info_window_abs"
-                                                            ></div>
-                                                            <p>eg.P1234567</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="clear"></div>
-                                            </div>
-                                        </div>
-                                        <div class="clear"></div>
-                                    </div>
-                                </div>
-                                <div class="xchange_pers">
-                                    <div class="xchange_pers_ins">
-                                        <div class="xchange_pers_title">
-                                            <div class="xchange_pers_title_ins">
-                                                <span>Personal data</span>
-                                            </div>
-                                        </div>
-                                        <div class="xchange_pers_div">
-                                            <div class="xchange_pers_div_ins">
-                                                <div
-                                                    class="
-                                                        xchange_pers_line
-                                                        has_help
-                                                    "
-                                                >
-                                                    <div
-                                                        class="
-                                                            xchange_pers_label
-                                                        "
-                                                    >
-                                                        <div
-                                                            class="
-                                                                xchange_pers_label_ins
-                                                            "
-                                                        >
-                                                            <label for="cf1">
-                                                                <span
-                                                                    class="
-                                                                        xchange_label
-                                                                    "
-                                                                    >Surname<span
-                                                                        class="
-                                                                            req
-                                                                        "
-                                                                        >*</span
-                                                                    >:
-                                                                    <span
-                                                                        class="
-                                                                            help_tooltip_label
-                                                                        "
-                                                                    ></span
-                                                                ></span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="
-                                                            xchange_pers_input
-                                                        "
-                                                    >
-                                                        <div
-                                                            class="
-                                                                js_wrap_error
-                                                                js_wrap_error_br
-                                                                js_window_wrap
-                                                            "
-                                                        >
-                                                            <input
-                                                                type="text"
-                                                                name="cf1"
-                                                                cash-id="cf1"
-                                                                id="cf1"
-                                                                class="
-                                                                    cache_data
-                                                                    check_cache
-                                                                    js_cf1
-                                                                    js_help
-                                                                "
-                                                                placeholder=""
-                                                                value=""
-                                                            />
-                                                            <div
-                                                                class="
-                                                                    info_window
-                                                                    js_window
-                                                                "
-                                                            >
-                                                                <div
-                                                                    class="
-                                                                        info_window_ins
-                                                                    "
-                                                                >
-                                                                    <div
-                                                                        style="background: url({% static 'images/ug_r.png' %}) no-repeat;"
-                                                                        class="info_window_abs"
-                                                                    ></div>
-                                                                    <p>
-                                                                        Enter
-                                                                        your
-                                                                        surname
-                                                                        as in
-                                                                        passport
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                class="
-                                                                    js_error
-                                                                    js_cf1_error
-                                                                "
-                                                            ></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="clear"></div>
-                                                </div>
-                                                <div
-                                                    class="
-                                                        xchange_pers_line
-                                                        has_help
-                                                    "
-                                                >
-                                                    <div
-                                                        class="
-                                                            xchange_pers_label
-                                                        "
-                                                    >
-                                                        <div
-                                                            class="
-                                                                xchange_pers_label_ins
-                                                            "
-                                                        >
-                                                            <label for="cf2">
-                                                                <span
-                                                                    class="
-                                                                        xchange_label
-                                                                    "
-                                                                    >Name<span
-                                                                        class="
-                                                                            req
-                                                                        "
-                                                                        >*</span
-                                                                    >:
-                                                                    <span
-                                                                        class="
-                                                                            help_tooltip_label
-                                                                        "
-                                                                    ></span
-                                                                ></span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="
-                                                            xchange_pers_input
-                                                        "
-                                                    >
-                                                        <div
-                                                            class="
-                                                                js_wrap_error
-                                                                js_wrap_error_br
-                                                                js_window_wrap
-                                                            "
-                                                        >
-                                                            <input
-                                                                type="text"
-                                                                name="cf2"
-                                                                cash-id="cf2"
-                                                                id="cf2"
-                                                                class="
-                                                                    cache_data
-                                                                    check_cache
-                                                                    js_cf2
-                                                                    js_help
-                                                                "
-                                                                placeholder=""
-                                                                value=""
-                                                            />
-                                                            <div
-                                                                class="
-                                                                    info_window
-                                                                    js_window
-                                                                "
-                                                            >
-                                                                <div
-                                                                    class="
-                                                                        info_window_ins
-                                                                    "
-                                                                >
-                                                                    <div
-                                                                    style="background: url({% static 'images/ug_r.png' %}) no-repeat;"
-                                                                        class="info_window_abs"
-                                                                    ></div>
-                                                                    <p>名字</p>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                class="
-                                                                    js_error
-                                                                    js_cf2_error
-                                                                "
-                                                            ></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="clear"></div>
-                                                </div>
-                                                <div
-                                                    class="
-                                                        xchange_pers_line
-                                                        has_help
-                                                    "
-                                                >
-                                                    <div
-                                                        class="
-                                                            xchange_pers_label
-                                                        "
-                                                    >
-                                                        <div
-                                                            class="
-                                                                xchange_pers_label_ins
-                                                            "
-                                                        >
-                                                            <label for="cf6">
-                                                                <span
-                                                                    class="
-                                                                        xchange_label
-                                                                    "
-                                                                    >E-mail<span
-                                                                        class="
-                                                                            req
-                                                                        "
-                                                                        >*</span
-                                                                    >:
-                                                                    <span
-                                                                        class="
-                                                                            help_tooltip_label
-                                                                        "
-                                                                    ></span
-                                                                ></span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="
-                                                            xchange_pers_input
-                                                        "
-                                                    >
-                                                        <div
-                                                            class="
-                                                                js_wrap_error
-                                                                js_wrap_error_br
-                                                                js_window_wrap
-                                                            "
-                                                        >
-                                                            <input
-                                                                type="text"
-                                                                name="cf6"
-                                                                cash-id="cf6"
-                                                                id="cf6"
-                                                                class="
-                                                                    cache_data
-                                                                    check_cache
-                                                                    js_cf6
-                                                                    js_help
-                                                                "
-                                                                placeholder=""
-                                                                value=""
-                                                            />
-                                                            <div
-                                                                class="
-                                                                    info_window
-                                                                    js_window
-                                                                "
-                                                            >
-                                                                <div
-                                                                    class="
-                                                                        info_window_ins
-                                                                    "
-                                                                >
-                                                                    <div
-                                                                        style="background: url({% static 'images/ug_r.png' %}) no-repeat;"
-                                                                        class="info_window_abs"
-                                                                    ></div>
-                                                                    <p>
-                                                                        Enter
-                                                                        your
-                                                                        e-mail
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                class="
-                                                                    js_error
-                                                                    js_cf6_error
-                                                                "
-                                                            ></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="clear"></div>
-                                                </div>
-                                                <div
-                                                    class="
-                                                        xchange_pers_line
-                                                        has_help
-                                                    "
-                                                >
-                                                    <div
-                                                        class="
-                                                            xchange_pers_label
-                                                        "
-                                                    >
-                                                        <div
-                                                            class="
-                                                                xchange_pers_label_ins
-                                                            "
-                                                        >
-                                                            <label for="cf4">
-                                                                <span
-                                                                    class="
-                                                                        xchange_label
-                                                                    "
-                                                                    >Phone
-                                                                    number<span
-                                                                        class="
-                                                                            req
-                                                                        "
-                                                                        >*</span
-                                                                    >:
-                                                                    <span
-                                                                        class="
-                                                                            help_tooltip_label
-                                                                        "
-                                                                    ></span
-                                                                ></span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="
-                                                            xchange_pers_input
-                                                        "
-                                                    >
-                                                        <div
-                                                            class="
-                                                                js_wrap_error
-                                                                js_wrap_error_br
-                                                                js_window_wrap
-                                                            "
-                                                        >
-                                                            <input
-                                                                type="text"
-                                                                name="cf4"
-                                                                cash-id="cf4"
-                                                                id="cf4"
-                                                                class="
-                                                                    cache_data
-                                                                    check_cache
-                                                                    js_cf4
-                                                                    js_help
-                                                                "
-                                                                placeholder=""
-                                                                value=""
-                                                            />
-                                                            <div
-                                                                class="
-                                                                    info_window
-                                                                    js_window
-                                                                "
-                                                            >
-                                                                <div
-                                                                    class="
-                                                                        info_window_ins
-                                                                    "
-                                                                >
-                                                                    <div
-                                                                        style="background: url({% static 'images/ug_r.png' %}) no-repeat;"
-                                                                        class="info_window_abs"
-                                                                    ></div>
-                                                                    <p>
-                                                                        联系电话
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                class="
-                                                                    js_error
-                                                                    js_cf4_error
-                                                                "
-                                                            ></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="clear"></div>
-                                                </div>
-                                                <div class="clear"></div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="clear"></div>
-                                <div class="xchange_submit_div">
-                                    <input
-                                        type="submit"
-                                        formtarget="_top"
-                                        class="xchange_submit"
-                                        name=""
-                                        value="Exchange"
-                                    />
+
+                                    <div class="xchange_data_right">
+                                        <div class="xchange_sum_line">
+                                            <div class="xchange_sum_label">
+                                                Amount<span class="req">*</span
+                                                >:
+                                            </div>
+                                            <div
+                                                class="
+                                                    xchange_sum_input
+                                                    js_wrap_error
+                                                    js_wrap_error_br
+                                                "
+                                            >
+                                                <input
+                                                    required
+                                                    max="{{ exchange.pair.max_price }}"
+                                                    min="{{ exchange.pair.min_price }}"
+                                                    type="float"
+                                                    name="pair_amount"
+                                                    id="amount_to_receive"
+                                                    autocomplete="off"
+                                                    class="js_decimal js_sum2"
+                                                    data-decimal="8"
+                                                />
+                                                <div
+                                                    hidden
+                                                    class="h-loader-receive"
+                                                >
+                                                    <img
+                                                        src="{% static 'images/h-loader.gif' %}"
+                                                        width="150"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="xchange_data_left">
+                                        <div
+                                            class="
+                                                xchange_sumandcom
+                                                js_viv_com2
+                                            "
+                                        >
+                                            <span class="js_comis_text2"
+                                                >A transaction fee of {{
+                                                processing_fee }} {{
+                                                exchange.pair.short_name }} is
+                                                included</span
+                                            >
+                                        </div>
+                                    </div>
+
+                                    {% if exchange.pair.short_name == "NGN" %}
+                                    <div class="xchange_data_left">
+                                        <div class="xchange_curs_line">
+                                            <div class="xchange_curs_line_ins">
+                                                <div class="xchange_curs_label">
+                                                    <div
+                                                        class="
+                                                            xchange_curs_label_ins
+                                                        "
+                                                    >
+                                                        <label
+                                                            for="account_number"
+                                                            ><span
+                                                                class="
+                                                                    xchange_label
+                                                                "
+                                                                >Account
+                                                                Number<span
+                                                                    class="req"
+                                                                    >*</span
+                                                                >:
+                                                                <span
+                                                                    class="
+                                                                        help_tooltip_label
+                                                                    "
+                                                                >
+                                                                </span></span
+                                                        ></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="
+                                                    xchange_curs_input
+                                                    js_wrap_error
+                                                    js_wrap_error_br
+                                                    js_window_wrap
+                                                "
+                                            >
+                                                <input
+                                                    required
+                                                    type="text"
+                                                    name="account_number"
+                                                    id="account_number"
+                                                    class="
+                                                        js_account_number
+                                                        js_help
+                                                        cache_data
+                                                        check_cache
+                                                    "
+                                                    placeholder=""
+                                                />
+                                                <div
+                                                    class="
+                                                        js_error
+                                                        js_account_number_error
+                                                    "
+                                                ></div>
+                                                <div
+                                                    class="
+                                                        info_window
+                                                        js_window
+                                                    "
+                                                >
+                                                    <div
+                                                        class="info_window_ins"
+                                                    >
+                                                        <div
+                                                            class="
+                                                                info_window_abs
+                                                            "
+                                                        ></div>
+                                                        <p>
+                                                            Carefully enter your
+                                                            bank account number
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="xchange_curs_line_ins">
+                                                <div class="xchange_curs_label">
+                                                    <div
+                                                        class="
+                                                            xchange_curs_label_ins
+                                                        "
+                                                    >
+                                                        <label
+                                                            for="account_name"
+                                                            ><span
+                                                                class="
+                                                                    xchange_label
+                                                                "
+                                                                >Account
+                                                                Name<span
+                                                                    class="req"
+                                                                    >*</span
+                                                                >:
+                                                                <span
+                                                                    class="
+                                                                        help_tooltip_label
+                                                                    "
+                                                                >
+                                                                </span></span
+                                                        ></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="
+                                                    xchange_curs_input
+                                                    js_wrap_error
+                                                    js_wrap_error_br
+                                                    js_window_wrap
+                                                "
+                                            >
+                                                <input
+                                                    required
+                                                    type="text"
+                                                    name="account_name"
+                                                    id="account_name"
+                                                    class="
+                                                        js_account_name js_help
+                                                        cache_data
+                                                        check_cache
+                                                    "
+                                                    placeholder=""
+                                                />
+                                                <div
+                                                    class="
+                                                        js_error
+                                                        js_account_name_error
+                                                    "
+                                                ></div>
+                                            </div>
+                                            <br />
+                                            <div class="xchange_curs_line_ins">
+                                                <div class="xchange_curs_label">
+                                                    <div
+                                                        class="
+                                                            xchange_curs_label_ins
+                                                        "
+                                                    >
+                                                        <label
+                                                            for="account_type"
+                                                            ><span
+                                                                class="
+                                                                    xchange_label
+                                                                "
+                                                                >Account
+                                                                Type<span
+                                                                    class="req"
+                                                                    >*</span
+                                                                >:
+                                                                <span
+                                                                    class="
+                                                                        help_tooltip_label
+                                                                    "
+                                                                >
+                                                                </span></span
+                                                        ></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="
+                                                    xchange_curs_input
+                                                    js_wrap_error
+                                                    js_wrap_error_br
+                                                    js_window_wrap
+                                                "
+                                            >
+                                                <input
+                                                    required
+                                                    type="text"
+                                                    name="account_type"
+                                                    id="account_type"
+                                                    class="
+                                                        js_account_type js_help
+                                                        cache_data
+                                                        check_cache
+                                                    "
+                                                    placeholder=""
+                                                />
+                                                <div
+                                                    class="
+                                                        js_error
+                                                        js_account_type_error
+                                                    "
+                                                ></div>
+                                            </div>
+                                            <br />
+                                            <div class="xchange_curs_line_ins">
+                                                <div class="xchange_curs_label">
+                                                    <div
+                                                        class="
+                                                            xchange_curs_label_ins
+                                                        "
+                                                    >
+                                                        <label for="bank_name"
+                                                            ><span
+                                                                class="
+                                                                    xchange_label
+                                                                "
+                                                                >Bank Name<span
+                                                                    class="req"
+                                                                    >*</span
+                                                                >:
+                                                                <span
+                                                                    class="
+                                                                        help_tooltip_label
+                                                                    "
+                                                                >
+                                                                </span></span
+                                                        ></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="
+                                                    xchange_curs_input
+                                                    js_wrap_error
+                                                    js_wrap_error_br
+                                                    js_window_wrap
+                                                "
+                                            >
+                                                <input
+                                                    required
+                                                    type="text"
+                                                    name="bank_name"
+                                                    id="bank_name"
+                                                    class="
+                                                        js_bank_name js_help
+                                                        cache_data
+                                                        check_cache
+                                                    "
+                                                    placeholder=""
+                                                />
+                                                <div
+                                                    class="
+                                                        js_error
+                                                        js_bank_name_error
+                                                    "
+                                                ></div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    <div class="xchange_data_left">
+                                        <div class="xchange_curs_line">
+                                            <div class="xchange_curs_line_ins">
+                                                <div class="xchange_curs_label">
+                                                    <div
+                                                        class="
+                                                            xchange_curs_label_ins
+                                                        "
+                                                    >
+                                                        <label
+                                                            for="{{ exchange.pair.short_name }}"
+                                                            ><span
+                                                                class="
+                                                                    xchange_label
+                                                                "
+                                                                >{{
+                                                                exchange.pair.name|upper
+                                                                }} Wallet
+                                                                Address<span
+                                                                    class="req"
+                                                                    >*</span
+                                                                >:
+                                                                <span
+                                                                    class="
+                                                                        help_tooltip_label
+                                                                    "
+                                                                >
+                                                                </span></span
+                                                        ></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="
+                                                    xchange_curs_input
+                                                    js_wrap_error
+                                                    js_wrap_error_br
+                                                    js_window_wrap
+                                                "
+                                            >
+                                                <input
+                                                    required
+                                                    type="text"
+                                                    name="{{ exchange.pair.short_name }}"
+                                                    id="{{ exchange.pair.short_name }}"
+                                                    class="js_{{ exchange.pair.short_name }} js_help cache_data check_cache"
+                                                />
+                                                <div
+                                                    class="js_error js_{{ exchange.pair.short_name }}_error"
+                                                ></div>
+                                                <div
+                                                    class="
+                                                        info_window
+                                                        js_window
+                                                    "
+                                                >
+                                                    <div
+                                                        class="info_window_ins"
+                                                    >
+                                                        <div
+                                                            class="
+                                                                info_window_abs
+                                                            "
+                                                        ></div>
+                                                        <p
+                                                            style="
+                                                                color: #180606;
+                                                            "
+                                                        >
+                                                            Please enter your {{
+                                                            exchange.pair.name
+                                                            }} wallet address.
+                                                            It is advisable
+                                                            never to enter an
+                                                            address manually.
+                                                            Kindly copy and
+                                                            paste it.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
                                     <div class="clear"></div>
                                 </div>
-                                <div class="xchange_checkdata_div">
-                                    <div class="checkbox">
-                                        <label
-                                            ><input
-                                                type="checkbox"
-                                                id="not_check_data"
-                                                name="not_check_data"
-                                                value="1"
-                                                class="jcheckbox"
-                                                style="display: none"
-                                            />
-                                            Do not remember entered data</label
-                                        >
+                            </div>
+
+                            <div class="xchange_pers">
+                                <div class="xchange_pers_ins">
+                                    <div class="xchange_pers_title">
+                                        <div class="xchange_pers_title_ins">
+                                            <span>Personal data</span>
+                                        </div>
+                                    </div>
+                                    <div class="xchange_pers_div">
+                                        <div class="xchange_pers_div_ins">
+                                            <div
+                                                class="
+                                                    xchange_pers_line
+                                                    has_help
+                                                "
+                                            >
+                                                <div class="xchange_pers_label">
+                                                    <div
+                                                        class="
+                                                            xchange_pers_label_ins
+                                                        "
+                                                    >
+                                                        <label for="surname"
+                                                            ><span
+                                                                class="
+                                                                    xchange_label
+                                                                "
+                                                                >Surname<span
+                                                                    class="req"
+                                                                    >*</span
+                                                                >:
+                                                                <span
+                                                                    class="
+                                                                        help_tooltip_label
+                                                                    "
+                                                                ></span></span
+                                                        ></label>
+                                                    </div>
+                                                </div>
+                                                <div class="xchange_pers_input">
+                                                    <div
+                                                        class="
+                                                            js_wrap_error
+                                                            js_wrap_error_br
+                                                            js_window_wrap
+                                                        "
+                                                    >
+                                                        <input
+                                                            required
+                                                            type="text"
+                                                            name="surname"
+                                                            cash-id="surname"
+                                                            id="surname"
+                                                            class="
+                                                                cache_data
+                                                                check_cache
+                                                                js_surname
+                                                                js_help
+                                                            "
+                                                            placeholder=""
+                                                            value=""
+                                                        />
+                                                        <div
+                                                            class="
+                                                                info_window
+                                                                js_window
+                                                            "
+                                                        >
+                                                            <div
+                                                                class="
+                                                                    info_window_ins
+                                                                "
+                                                            >
+                                                                <div
+                                                                    class="
+                                                                        info_window_abs
+                                                                    "
+                                                                ></div>
+                                                                <p>
+                                                                    Enter your
+                                                                    surname as
+                                                                    in passport
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="
+                                                                js_error
+                                                                js_surname_error
+                                                            "
+                                                        ></div>
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </div>
+                                            <div
+                                                class="
+                                                    xchange_pers_line
+                                                    has_help
+                                                "
+                                            >
+                                                <div class="xchange_pers_label">
+                                                    <div
+                                                        class="
+                                                            xchange_pers_label_ins
+                                                        "
+                                                    >
+                                                        <label for="name"
+                                                            ><span
+                                                                class="
+                                                                    xchange_label
+                                                                "
+                                                                >Name<span
+                                                                    class="req"
+                                                                    >*</span
+                                                                >:
+                                                                <span
+                                                                    class="
+                                                                        help_tooltip_label
+                                                                    "
+                                                                ></span></span
+                                                        ></label>
+                                                    </div>
+                                                </div>
+                                                <div class="xchange_pers_input">
+                                                    <div
+                                                        class="
+                                                            js_wrap_error
+                                                            js_wrap_error_br
+                                                            js_window_wrap
+                                                        "
+                                                    >
+                                                        <input
+                                                            required
+                                                            type="text"
+                                                            name="name"
+                                                            cash-id="name"
+                                                            id="name"
+                                                            class="
+                                                                cache_data
+                                                                check_cache
+                                                                js_name js_help
+                                                            "
+                                                            placeholder=""
+                                                            value=""
+                                                        />
+                                                        <div
+                                                            class="
+                                                                info_window
+                                                                js_window
+                                                            "
+                                                        >
+                                                            <div
+                                                                class="
+                                                                    info_window_ins
+                                                                "
+                                                            >
+                                                                <div
+                                                                    class="
+                                                                        info_window_abs
+                                                                    "
+                                                                ></div>
+                                                                <p>
+                                                                    Enter your
+                                                                    name as in
+                                                                    passport
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="
+                                                                js_error
+                                                                js_name_error
+                                                            "
+                                                        ></div>
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </div>
+                                            <div
+                                                class="
+                                                    xchange_pers_line
+                                                    has_help
+                                                "
+                                            >
+                                                <div class="xchange_pers_label">
+                                                    <div
+                                                        class="
+                                                            xchange_pers_label_ins
+                                                        "
+                                                    >
+                                                        <label for="email"
+                                                            ><span
+                                                                class="
+                                                                    xchange_label
+                                                                "
+                                                                >E-mail<span
+                                                                    class="req"
+                                                                    >*</span
+                                                                >:
+                                                                <span
+                                                                    class="
+                                                                        help_tooltip_label
+                                                                    "
+                                                                ></span></span
+                                                        ></label>
+                                                    </div>
+                                                </div>
+                                                <div class="xchange_pers_input">
+                                                    <div
+                                                        class="
+                                                            js_wrap_error
+                                                            js_wrap_error_br
+                                                            js_window_wrap
+                                                        "
+                                                    >
+                                                        <input
+                                                            required
+                                                            type="email"
+                                                            name="email"
+                                                            cash-id="email"
+                                                            id="email"
+                                                            class="
+                                                                cache_data
+                                                                check_cache
+                                                                js_email js_help
+                                                            "
+                                                            placeholder=""
+                                                            value=""
+                                                        />
+
+                                                        <div
+                                                            class="
+                                                                info_window
+                                                                js_window
+                                                            "
+                                                        >
+                                                            <div
+                                                                class="
+                                                                    info_window_ins
+                                                                "
+                                                            >
+                                                                <div
+                                                                    class="
+                                                                        info_window_abs
+                                                                    "
+                                                                ></div>
+                                                                <p>
+                                                                    Enter your
+                                                                    e-mail
+                                                                </p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div
+                                                            class="
+                                                                js_error
+                                                                js_email_error
+                                                            "
+                                                        ></div>
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </div>
+                                            <div
+                                                class="
+                                                    xchange_pers_line
+                                                    has_help
+                                                "
+                                            >
+                                                <div class="xchange_pers_label">
+                                                    <div
+                                                        class="
+                                                            xchange_pers_label_ins
+                                                        "
+                                                    >
+                                                        <label for="phone"
+                                                            ><span
+                                                                class="
+                                                                    xchange_label
+                                                                "
+                                                                >Phone
+                                                                number<span
+                                                                    class="req"
+                                                                    >*</span
+                                                                >:
+                                                                <span
+                                                                    class="
+                                                                        help_tooltip_label
+                                                                    "
+                                                                ></span></span
+                                                        ></label>
+                                                    </div>
+                                                </div>
+                                                <div class="xchange_pers_input">
+                                                    <div
+                                                        class="
+                                                            js_wrap_error
+                                                            js_wrap_error_br
+                                                            js_window_wrap
+                                                        "
+                                                    >
+                                                        <input
+                                                            required
+                                                            type="text"
+                                                            name="phone"
+                                                            cash-id="phone"
+                                                            id="phone"
+                                                            class="
+                                                                cache_data
+                                                                check_cache
+                                                                js_phone js_help
+                                                            "
+                                                            placeholder=""
+                                                            value=""
+                                                        />
+
+                                                        <div
+                                                            class="
+                                                                info_window
+                                                                js_window
+                                                            "
+                                                        >
+                                                            <div
+                                                                class="
+                                                                    info_window_ins
+                                                                "
+                                                            >
+                                                                <div
+                                                                    class="
+                                                                        info_window_abs
+                                                                    "
+                                                                ></div>
+                                                                <p>
+                                                                    Enter your
+                                                                    phone number
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="
+                                                                js_error
+                                                                js_phone_error
+                                                            "
+                                                        ></div>
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="ajax_post_bids_res"></div>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="mtcaptcha"></div>
+                            <div class="xchange_submit_div">
+                                <input
+                                    id="submit-form-btn"
+                                    type="submit"
+                                    formtarget="_top"
+                                    class="xchange_submit"
+                                    value="Exchange"
+                                />
+                                <div class="clear"></div>
                             </div>
                         </div>
-                        <div
-                            class="warning_message"
-                            itemscope=""
-                            itemtype="http://schema.org/Article"
-                        >
-                            <div class="warning_message_ins">
-                                <div class="warning_message_abs"></div>
-                                <div class="warning_message_close"></div>
-                                <div class="warning_message_title">
-                                    <div
-                                        class="warning_message_title_ins"
-                                        itemprop="name"
+                    </div>
+                    <div
+                        class="warning_message"
+                        itemscope=""
+                        itemtype="http://schema.org/Article"
+                    >
+                        <div class="warning_message_ins">
+                            <div class="warning_message_abs"></div>
+                            <div class="warning_message_close"></div>
+                            <div class="warning_message_title">
+                                <div
+                                    class="warning_message_title_ins"
+                                    itemprop="name"
+                                >
+                                    <span
+                                        >Exchange {{ exchange.currency }} TO {{
+                                        exchange.pair }}</span
                                     >
-                                        <span
-                                            >Exchange Alipay CNY to Payeer
-                                            USD</span
-                                        >
-                                    </div>
                                 </div>
-                                <div class="warning_message_text">
-                                    <div
-                                        class="warning_message_text_ins"
-                                        itemprop="articleBody"
-                                    >
-                                        <p>
-                                            For exchange you need to follow a
-                                            few steps:
-                                        </p>
-                                        <ol>
-                                            <li>
-                                                Fill in all the fields of the
-                                                form submitted. Click
-                                                «Exchange».
-                                            </li>
-                                            <li>
-                                                Read the terms of the agreement
-                                                on exchange services, when
-                                                accepting it, please tick the
-                                                appropriate field and press the
-                                                button «Create bid».
-                                            </li>
-                                            <li>
-                                                Pay for the bid. To do this,
-                                                transfer the necessary amount,
-                                                following the instructions on
-                                                our website.
-                                            </li>
-                                            <li>
-                                                After this is done, the system
-                                                will redirect you to the «Bid
-                                                status» page, where the status
-                                                of your transferwill be shown.
-                                            </li>
-                                        </ol>
-                                        <p>
-                                            Note: this operation will require
-                                            the participation of the operator.
-                                            The application process takes about
-                                            20 minutes.
-                                        </p>
-                                    </div>
+                            </div>
+                            <div class="warning_message_text">
+                                <div
+                                    class="warning_message_text_ins"
+                                    itemprop="articleBody"
+                                >
+                                    <p>
+                                        For exchange you need to follow a few
+                                        steps:
+                                    </p>
+                                    <ol>
+                                        <li>
+                                            Fill in all the fields of the form
+                                            submitted. Click «Exchange».
+                                        </li>
+                                        <li>
+                                            Read the terms of the agreement on
+                                            exchange services, when accepting
+                                            it, please tick the appropriate
+                                            field and press the button «Create
+                                            bid».
+                                        </li>
+                                        <li>
+                                            Pay for the bid. To do this,
+                                            transfer the necessary amount,
+                                            following the instructions on our
+                                            website.
+                                        </li>
+                                        <li>
+                                            After this is done, the system will
+                                            redirect you to the «Bid status»
+                                            page, where the status of your
+                                            transferwill be shown.
+                                        </li>
+                                    </ol>
+                                    <p>
+                                        Note: this operation will require the
+                                        participation of the operator. The
+                                        application process takes about 20
+                                        minutes.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -1578,11 +1170,8 @@
             <div class="not_frame">
                 <div class="login_widget">
                     <div class="login_widget_ins">
-                        <form
-                            method="post"
-                            class="ajax_post_form"
-                            action="https://atchange.net/premium_action-loginform.html?meth=post&amp;yid=1ed258dc1d44&amp;ynd=0&amp;lang=en"
-                        >
+                        <form method="post" action="/admin/login/">
+                            {% csrf_token %}
                             <div class="login_widget_title">
                                 <div class="login_widget_title_ins">
                                     Authorization
@@ -1611,8 +1200,9 @@
                                             >
                                                 <span
                                                     class="form_field_label_ins"
-                                                    >Login or email
-                                                    <span class="req">*</span
+                                                    >Login or email<span
+                                                        class="req"
+                                                        >*</span
                                                     >:</span
                                                 >
                                             </label>
@@ -1623,14 +1213,11 @@
                                                 widget_log_line_ins
                                             "
                                         >
-                                            <input
-                                                type="text"
-                                                id="form_field_id-1-logmail"
-                                                class="widget_log_input"
-                                                placeholder=""
-                                                name="logmail"
-                                                value=""
-                                            />
+                                            <input type="text"
+                                            id="form_field_id-1-logmail"
+                                            class="widget_log_input
+                                            placeholder="" name="username"
+                                            value="" />
                                             <div class="form_field_errors">
                                                 <div
                                                     class="
@@ -1678,63 +1265,11 @@
                                         >
                                             <input
                                                 type="password"
+                                                autocomplete="true"
                                                 id="form_field_id-1-pass"
                                                 class="widget_log_input"
                                                 placeholder=""
-                                                name="pass"
-                                                value=""
-                                            />
-                                            <div class="form_field_errors">
-                                                <div
-                                                    class="
-                                                        form_field_errors_ins
-                                                    "
-                                                ></div>
-                                            </div>
-                                        </div>
-                                        <div
-                                            class="
-                                                form_field_clear
-                                                widget_log_line_clear
-                                            "
-                                        ></div>
-                                    </div>
-                                    <div
-                                        class="
-                                            form_field_line
-                                            widget_log_line
-                                            type_input
-                                            field_name_user_pin
-                                            hidden_line
-                                            has_title
-                                        "
-                                    >
-                                        <div
-                                            class="
-                                                form_field_label
-                                                widget_log_label
-                                            "
-                                        >
-                                            <label
-                                                for="form_field_id-1-user_pin"
-                                                ><span
-                                                    class="form_field_label_ins"
-                                                    >Personal PIN code:</span
-                                                ></label
-                                            >
-                                        </div>
-                                        <div
-                                            class="
-                                                form_field_ins
-                                                widget_log_line_ins
-                                            "
-                                        >
-                                            <input
-                                                type="text"
-                                                id="form_field_id-1-user_pin"
-                                                class="widget_log_input"
-                                                placeholder=""
-                                                name="user_pin"
+                                                name="password"
                                                 value=""
                                             />
                                             <div class="form_field_errors">
@@ -1753,17 +1288,8 @@
                                         ></div>
                                     </div>
                                     <div class="widget_log_line_text">
-                                        <div class="login_widget_subm_left">
-                                            <a
-                                                href="https://atchange.net/register/"
-                                                >Sign up</a
-                                            >
-                                        </div>
                                         <div class="login_widget_subm_right">
-                                            <a
-                                                href="https://atchange.net/lostpass/"
-                                                >Forgot password?</a
-                                            >
+                                            <a href="#">Forgot password?</a>
                                         </div>
                                         <div class="clear"></div>
                                     </div>
@@ -1788,43 +1314,28 @@
                         <div class="widget_titlevn">Reviews</div>
                     </div>
                     <div class="widget_items">
+                        {% for item in reviews %}
                         <div class="widget_reviews_line first odd">
-                            <div class="widget_reviews_author">Pavel,</div>
-                            <div class="widget_reviews_date">
-                                03.09.2018, 06:23
-                            </div>
-                            <div class="clear"></div>
-                            <div class="widget_reviews_content">
-                                Very , very ,……… GOOD .and FAST
-                            </div>
-                        </div>
-                        <div class="widget_reviews_line even">
-                            <div class="widget_reviews_author">benny,</div>
-                            <div class="widget_reviews_date">
-                                03.09.2018, 06:20
-                            </div>
-                            <div class="clear"></div>
-                            <div class="widget_reviews_content">
-                                Перфекты на Advcash в течении одной минуты.
-                                Спасибо. Молодцы.
-                            </div>
-                        </div>
-                        <div class="widget_reviews_line last odd">
                             <div class="widget_reviews_author">
-                                Delmwin Baeka,
+                                {{ item.name }}
                             </div>
                             <div class="widget_reviews_date">
-                                03.09.2018, 06:18
+                                {{ item.timestamp|date:'Y-m-d H:i' }}
                             </div>
                             <div class="clear"></div>
                             <div class="widget_reviews_content">
-                                very fast and reliable service!
+                                {{ item.review }}
                             </div>
                         </div>
+                        {% empty %}
+                        <div class="widget_reviews_line first odd">
+                            <div class="widget_reviews_content">No review</div>
+                        </div>
+                        {% endfor %}
                     </div>
                     <div class="widget_reviews_more_wrap">
                         <a
-                            href="https://atchange.net/reviews/"
+                            href="{% url 'reviews' %}"
                             class="widget_reviews_more"
                             >All reviews</a
                         >
@@ -1838,44 +1349,39 @@
                         <div class="widget_titlevn">News</div>
                     </div>
                     <div class="widget_items">
+                        {% for item in news %}
+                        <div
+                            class="
+                                widget_news_line
+                                {%
+                                if
+                                forloop.counter
+                                ==
+                                1
+                                %}
+                                first
+                                {%
+                                endif
+                                %}
+                                odd
+                            "
+                        >
+                            <div class="widget_news_date">
+                                {{ item.timestamp|date:'Y-m-d H:i' }}
+                            </div>
+                            <div class="clear"></div>
+                            <div class="widget_news_content">
+                                <a href="#">{{ item.title }}</a>
+                            </div>
+                        </div>
+                        {% empty %}
                         <div class="widget_news_line first odd">
-                            <div class="widget_news_date">18.10.2016</div>
-                            <div class="clear"></div>
-                            <div class="widget_news_content">
-                                <a
-                                    href="https://atchange.net/added-perfectmoney-official-authorized-exchanger/"
-                                    >Added PerfectMoney Official Authorized
-                                    Exchanger</a
-                                >
-                            </div>
+                            <div class="widget_news_content">No News</div>
                         </div>
-                        <div class="widget_news_line even">
-                            <div class="widget_news_date">25.10.2016</div>
-                            <div class="clear"></div>
-                            <div class="widget_news_content">
-                                <a
-                                    href="https://atchange.net/added-okpay-official-authorized-exchanger/"
-                                    >Added OKPay Official Authorized
-                                    Exchanger</a
-                                >
-                            </div>
-                        </div>
-                        <div class="widget_news_line last odd">
-                            <div class="widget_news_date">29.10.2016</div>
-                            <div class="clear"></div>
-                            <div class="widget_news_content">
-                                <a
-                                    href="https://atchange.net/added-advcash-official-authorized-exchanger/"
-                                    >Added AdvCash Official Authorized
-                                    Exchanger</a
-                                >
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                     <div class="widget_news_more_wrap">
-                        <a
-                            href="https://atchange.net/news/"
-                            class="widget_news_more"
+                        <a href="{% url 'news' %}" class="widget_news_more"
                             >All news</a
                         >
                         <div class="clear"></div>

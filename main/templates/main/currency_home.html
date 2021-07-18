@@ -370,50 +370,25 @@
                   <div class="home_reviews_title">Reviews</div>
                   <div class="home_reviews_div_wrap">
                      <div class="home_reviews_div">
-                        <div class="home_reviews_one">
-                           <div class="home_reviews_abs" style="background: #2d3e50 url({% static 'images/blick.png' %}) no-repeat center 54px;"></div>
-                           <div class="home_reviews_date">
-                              03.01.2021, 06:23pm
-                           </div>
-                           <div class="clear"></div>
-                           <div class="home_reviews_content">
-                              Andy
-                           </div>
-                           <div class="home_reviews_content">
-                              Very nice experience with a good support team.
-                           </div>
-                        </div>
-                        <div class="home_reviews_one">
-                           <div class="home_reviews_abs" style="background: #2d3e50 url({% static 'images/blick.png' %}) no-repeat center 54px;"></div>
-                           <div class="home_reviews_date">
-                              10.01.2021, 10:20am
-                           </div>
-                           <div class="clear"></div>
-                           <div class="home_reviews_content">
-                              Abdul
-                           </div>
-                           <div class="clear"></div>
-                           <div class="home_reviews_content">
-                              Very fast and reliable service!
-                           </div>
-                        </div>
-                        <div class="home_reviews_one">
-                           <div class="home_reviews_abs" style="background: #2d3e50 url({% static 'images/blick.png' %}) no-repeat center 54px;"></div>
-                           <div class="home_reviews_date">
-                              03.09.2018, 06:18
-                           </div>
-                           <div class="clear"></div>
-                           <div class="home_reviews_content">
-                              John
-                           </div>
-                           <div class="home_reviews_content">
-                              Good services by agents you can trust, I recommend.
-                           </div>
-                        </div>
+                         {% for review in reviews %}
+                            <div class="home_reviews_one">
+                            <div class="home_reviews_abs" style="background: #2d3e50 url({% static 'images/blick.png' %}) no-repeat center 54px;"></div>
+                            <div class="home_reviews_date">
+                                {{ review.timestamp|date:"DATETIME_FORMAT" }}
+                            </div>
+                            <div class="clear"></div>
+                            <div class="home_reviews_content">
+                                {{ review.name }}
+                            </div>
+                            <div class="home_reviews_content">
+                                {{ review.body }}
+                            </div>
+                            </div>
+                        {% endfor %}
                         <div class="clear"></div>
                      </div>
                   </div>
-                  <a href="#" class="home_reviews_more" >All reviews</a>
+                  <a href="{% url 'reviews' %}" class="home_reviews_more" >All reviews</a>
                   <div class="clear"></div>
                </div>
             </div>
@@ -424,19 +399,16 @@
                   <div class="home_lchange_title">Last exchanges</div>
                   <div class="home_lchange_div_wrap">
                      <div class="home_lchange_div">
-                        <div class="home_lchange_one">
-                           <div class="home_lchange_date">14-07-2021, 12:29</div>
+                         {% for tran in transactions %}
+                         <div class="home_lchange_one">
+                           <div class="home_lchange_date">{{ tran.timestamp|date:"DATETIME_FORMAT" }}</div>
                            <div class="home_lchange_body">
                               <div class="home_lchange_why">
                                  <div
-                                    class="home_lchange_ico currency_logo"
-                                    style="
-                                    background-image: url({% static 'images/usd.png' %});
-                                    "
-                                    ></div>
+                                    class="home_lchange_ico currency_logo" style="background-image: url({{ tran.pair.currency.get_logo }});"></div>
                                  <div class="home_lchange_txt">
-                                    <div class="home_lchange_sum">307</div>
-                                    <div class="home_lchange_name">USD</div>
+                                    <div class="home_lchange_sum">{{ tran.coin_amount }}</div>
+                                    <div class="home_lchange_name">{{ tran.pair.currency.short_name }}</div>
                                  </div>
                                  <div class="clear"></div>
                               </div>
@@ -445,47 +417,19 @@
                                  <div
                                     class="home_lchange_ico currency_logo"
                                     style="
-                                    background-image: url({% static 'images/btc.png' %});
+                                    background-image: url({{ tran.pair.pair.get_logo }});
                                     "
                                     ></div>
                                  <div class="home_lchange_txt">
-                                    <div class="home_lchange_sum"> 3</div>
-                                    <div class="home_lchange_name">BTC</div>
+                                    <div class="home_lchange_sum">{{ tran.pair_amount }}</div>
+                                    <div class="home_lchange_name">{{ tran.pair.pair.short_name }}</div>
                                  </div>
                               </div>
                               <div class="clear"></div>
                            </div>
                            <div class="clear"></div>
                         </div>
-                        <div class="home_lchange_one">
-                           <div class="home_lchange_date">14.07.2021, 13:18</div>
-                           <div class="home_lchange_body">
-                              <div class="home_lchange_why">
-                                 <div
-                                    class="home_lchange_ico currency_logo"
-                                    style="background-image: url({% static 'images/eth.png' %});"
-                                    ></div>
-                                 <div class="home_lchange_txt">
-                                    <div class="home_lchange_sum">522</div>
-                                    <div class="home_lchange_name">ETH</div>
-                                 </div>
-                                 <div class="clear"></div>
-                              </div>
-                              <div class="home_lchange_arr" style="background: url({% static 'images/harr.png' %}) no-repeat 0 center;"></div>
-                              <div class="home_lchange_why">
-                                 <div
-                                    class="home_lchange_ico currency_logo"
-                                    style="background-image: url({% static 'images/eth.png' %});"
-                                    ></div>
-                                 <div class="home_lchange_txt">
-                                    <div class="home_lchange_sum">60</div>
-                                    <div class="home_lchange_name">ETH</div>
-                                 </div>
-                              </div>
-                              <div class="clear"></div>
-                           </div>
-                           <div class="clear"></div>
-                        </div>
+                        {% endfor %}
                         <div class="clear"></div>
                      </div>
                   </div>
@@ -499,40 +443,22 @@
                   <div class="home_news_title">News</div>
                   <div class="home_news_div_wrap">
                      <div class="home_news_div">
-                        <div class="home_news_one">
-                           <div class="home_news_one_abs"></div>
-                           <div class="home_news_one_ins">
-                              <div class="home_news_one_date">09 July, 2021</div>
-                              <div class="clear"></div>
-                              <div class="home_news_one_content">
-                                 <a href="#" >Added Bitcoin Authorized Exchanger</a>
-                              </div>
-                           </div>
+                         {% for item in news %}
+                         <div class="home_news_one">
+                            <div class="home_news_one_abs"></div>
+                            <div class="home_news_one_ins">
+                                <div class="home_news_one_date">{{ item.timestamp|date:"DATETIME_FORMAT" }}</div>
+                                <div class="clear"></div>
+                                <div class="home_news_one_content">
+                                    <a href="#" >{{ item.title|title }}</a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="home_news_one">
-                           <div class="home_news_one_abs"></div>
-                           <div class="home_news_one_ins">
-                              <div class="home_news_one_date">10 July, 2021</div>
-                              <div class="clear"></div>
-                              <div class="home_news_one_content">
-                                 <a href="#">Added USD Authorized Exchanger</a>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="home_news_one">
-                           <div class="home_news_one_abs"></div>
-                           <div class="home_news_one_ins">
-                              <div class="home_news_one_date">11 July, 2021</div>
-                              <div class="clear"></div>
-                              <div class="home_news_one_content">
-                                 <a href="#">Added ETH Authorized Exchanger</a>
-                              </div>
-                           </div>
-                        </div>
+                        {% endfor %}
                         <div class="clear"></div>
                      </div>
                   </div>
-                  <a href="#" class="home_news_more"
+                  <a href="{% url 'news' %}" class="home_news_more"
                      >All news</a
                      >
                   <div class="clear"></div>
@@ -574,17 +500,12 @@
             <div class="home_partner_ins">
                <div class="home_partner_block">
                   <div class="home_partner_title">Partners</div>
-                  <div class="home_partner_one">
-                     <a
-                        href="https://www.bestchange.com/atchange-exchanger.html"
-                        target="_blank"
-                        >
-                     <img src="{% static 'images/bcb.png' %}" alt="" />
-                     </a>
+                   <div class="home_partner_one">
+                     <img src="{% static 'images/bitcoin-bottom.png' %}" alt="" />
                   </div>
                   <div class="home_partner_one">
                      <a
-                        href="https://www.okchanger.com/exchangers/atchange"
+                        href="#"
                         target="_blank"
                         >
                      <img src="{% static 'images/okpay-bottom.png' %}" alt="" />
@@ -592,30 +513,20 @@
                   </div>
                   <div class="home_partner_one">
                      <a
-                        href="https://perfectmoney.is/business-partners.html"
+                        href="#"
                         target="_blank"
                         >
                      <img src="{% static 'images/pm-bottom.png' %}" alt="" />
                      </a>
                   </div>
                   <div class="home_partner_one">
-                     <a href="https://atchange.net/#" target="_blank">
-                     <img src="{% static 'images/alb.png' %}" alt="" />
-                     </a>
-                  </div>
-                  <div class="home_partner_one">
-                     <a href="https://payeer.com/?partner=75045" target="_blank">
+                     <a href="#" target="_blank">
                      <img src="{% static 'images/prb.png' %}" alt="" />
                      </a>
                   </div>
                   <div class="home_partner_one">
-                     <a href="https://atchange.net/#" target="_blank">
-                     <img src="{% static 'images/wm-botton.png' %}" alt="" />
-                     </a>
-                  </div>
-                  <div class="home_partner_one">
                      <a
-                        href="https://advcash.com/en/about/exchange/"
+                        href="#"
                         target="_blank"
                         >
                      <img src="{% static 'images/advb.png' %}" alt="" />
@@ -623,43 +534,10 @@
                   </div>
                   <div class="home_partner_one">
                      <a
-                        href="https://www.okchanger.com/?a=72059"
+                        href="#"
                         target="_blank"
                         >
                      <img src="{% static 'images/okb.png' %}" alt="" />
-                     </a>
-                  </div>
-                  <div class="home_partner_one">
-                     <img src="{% static 'images/bitcoin-bottom.png' %}" alt="" />
-                  </div>
-                  <div class="home_partner_one">
-                     <a
-                        href="https://bestemoneys.com/ec-exchange_atchange-net.html"
-                        target="_blank"
-                        >
-                     <img src="{% static 'images/bms.gif' %}" alt="" />
-                     </a>
-                  </div>
-                  <div class="home_partner_one">
-                     <a href="https://bestexchangers.ru/" target="_blank">
-                     <img src="{% static 'images/bestchangers.gif' %}" alt="" />
-                     </a>
-                  </div>
-                  <div class="home_partner_one">
-                     <a href="https://e-mon.ru/" target="_blank">
-                     <img src="{% static 'images/emon.png' %}" alt="" />
-                     </a>
-                  </div>
-                  <div class="home_partner_one">
-                     <a
-                        href="https://eobmen-obmen.ru/atchange-detali"
-                        target="_blank"
-                        >
-                     <img src="{% static 'images/eobmen.gif' %}" alt="" />
-                     </a>
-                  </div>
-                  <div class="home_partner_one">
-                     <img src="{% static 'images/es.jpg' %}" alt="" />
                      </a>
                   </div>
                   <div class="clear"></div>

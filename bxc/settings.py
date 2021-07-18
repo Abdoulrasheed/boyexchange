@@ -26,12 +26,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "django.contrib.humanize",
-    "django.contrib.sites",
-    "robots",
     "main",
 ]
 
-SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -44,7 +41,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'bxc.urls'
-
+LOGIN_REDIRECT_URL = "/admin/"
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -56,6 +53,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'main.context_processor.news_and_reviews',
             ],
         },
     },
@@ -63,7 +61,6 @@ TEMPLATES = [
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.load_template_source',
-    'django.template.loaders.app_directories.Loader'
 )
 
 WSGI_APPLICATION = 'bxc.wsgi.application'
