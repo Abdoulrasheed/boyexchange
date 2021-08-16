@@ -27,7 +27,8 @@ class ExchangePair(models.Model):
     
     def __str__(self):
         return f"{self.currency} > {self.pair}" 
-
+    
+    
 class Transaction(models.Model):
     pair = models.ForeignKey(ExchangePair, verbose_name=_("pair"), on_delete=models.CASCADE)
     coin_amount = models.FloatField(_("currency price"))
@@ -43,7 +44,6 @@ class Transaction(models.Model):
     account_type = models.CharField(_("account type"), blank=True, max_length=50)
     bank_name = models.CharField(_("bank name"), blank=True, max_length=50)
     fullname = models.CharField(_("fullname"), blank=True, max_length=50)
-    surname = models.CharField(_("surname"), blank=True, max_length=50)
     email = models.CharField(_("email"), blank=True, max_length=50)
     phone = models.CharField(_("phone"), blank=True, max_length=50)
     

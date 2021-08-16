@@ -1,0 +1,76 @@
+{% extends 'nbase.html' %} {% block content %}
+
+<div class="section">
+    <div class="row" id="bit_exchange_box">
+        <div id="bit_exchange_results"></div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <h3><i class="fa fa-user"></i> Additional information</h3>
+                <form method="POST" action="{% url 'payment' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label>Your email address</label>
+                        <input
+                            type="email"
+                            class="form-control input-lg form_style_1"
+                            name="email"
+                            required=""
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label>Your name</label>
+                        <input
+                            type="text"
+                            class="form-control input-lg form_style_1"
+                            name="fullname"
+                            required=""
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label>Your phone number</label>
+                        <input
+                            type="number"
+                            class="form-control input-lg form_style_1"
+                            name="phone"
+                            required=""
+                        />
+                    </div>
+
+                    <input
+                        type="hidden"
+                        name="coin_amount"
+                        value="{{ coin_amount }}"
+                    />
+                    <input
+                        type="hidden"
+                        name="pair_amount"
+                        value="{{ pair_amount }}"
+                    />
+                    <input type="hidden" name="pair" value="{{ pair.id }}" />
+
+                    <div
+                        style="
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        "
+                    >
+                        <button
+                            type="submit"
+                            class="btn btn-primary btn-lg"
+                            onclick="bit_exchange_step_3();"
+                        >
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i
+                                class="fa fa-refresh"
+                            ></i>
+                            Process exchange&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

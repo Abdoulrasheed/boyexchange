@@ -16,7 +16,7 @@ sitemaps = {
 
 urlpatterns = [
     path("", include("main.urls")),
-    path('admin/', admin.site.urls),
+    path('u/admin/', admin.site.urls),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, 
          name='django.contrib.sitemaps.views.sitemap'),
     path('robots.txt', TemplateView.as_view(template_name='main/robots.txt', content_type="text/plain")),

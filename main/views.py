@@ -6,7 +6,7 @@ from django.views import View
 from django.contrib import sitemaps
 from django.urls import reverse
 from .models import ExchangePair, Currency, Config, News, Review, Transaction
-from .forms import TransactionForm
+from .forms import PurchaseForm, TransactionForm
 
 class HomeView(ListView):
     template_name_suffix = "_home"
@@ -17,6 +17,26 @@ class HomeView(ListView):
         transactions = Transaction.objects.all().order_by('-pk')[:2]
         context['transactions'] = transactions
         return context
+
+class DetailView(View):
+    form = PurchaseForm
+    def post(self, request):
+        form = self.form(request.POST)
+        if form.is_valid():
+            amount_to_send = form.cleaned_data.get("amount_to_send")
+            amount_to_receive = form.cleaned_data.get("amount_to_receive")
+            coin_to_send = form.cleaned_data.get("coin_to_send")
+            coin_to_receive = form.cleaned_data.get("coin_to_receive")
+            
+            pair = ExchangePair.objects.get(currency=coin_to_send, pair=coin_to_receive)
+            
+            ctx = {"coin_amount": amount_to_send, "pair_amount": amount_to_receive, "pair": pair}
+            return render(request, "main/detail.html", ctx)
+        
+        return render(request, "main/currency_home.html", { "errors": form.errors })
+    
+    def get(self, request):
+        return redirect("home")
 
 class PairPurchase(View):
     def get(self, request, currency, pair):
@@ -41,10 +61,7 @@ class PaymentView(View):
             trans.save()
             
             config = Config.objects.first()
-            ctx = { 
-                   "config": config, 
-                   "transaction": trans,
-                }
+            ctx = { "config": config, "transaction": trans }
             
             if trans.pair.currency.short_name == "NGN":
                 ctx['is_naira'] = True
@@ -54,22 +71,21 @@ class PaymentView(View):
         else:
             return render(request, "main/purchase.html", {"errors": form.errors }) 
 
+class GetPairs(View):
+    def get(self, request):
+        id = request.GET.get("id")
+        currencies = Currency.objects.exclude(id=id).values()
+        return JsonResponse({ "currencies": list(currencies) })
+        
+        
 class PairView(View):
-    def post(self, request):
+    def get(self, request):
         try:
-            exchange_pk = request.POST.get("exchange")
-            amount = request.POST.get("amount")
-            amount = float(amount)
-            action = request.POST.get("action")
-            exchange = ExchangePair.objects.get(pk=exchange_pk) 
-            
-            if action == "send":
-                rate =  exchange.pair_equivalent * amount
-            else:
-                exchange = ExchangePair.objects.get(currency__name=exchange.pair.name, pair__name=exchange.currency.name) 
-                rate = exchange.pair_equivalent * amount
-                
-            return JsonResponse({ "rate": rate, "name": exchange.currency.short_name })
+            currency = request.GET.get("currencyIDToSend")
+            pair = request.GET.get("currencyIDToReceive")
+            exchange_pair = ExchangePair.objects.get(currency__id=currency, pair__id=pair) 
+            message = f"Exchange rate: 1 {exchange_pair.currency.short_name} = {exchange_pair.pair_equivalent} {exchange_pair.pair.short_name}"
+            return JsonResponse({ "message": message, "rate": exchange_pair.pair_equivalent })
         except:
             return JsonResponse({ "rate": 0 })
 

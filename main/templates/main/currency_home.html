@@ -1,551 +1,224 @@
-{% extends "base.html" %}
-{% load static humanize extra_tags %}
-{% block content %}
-<!-- end top menu -->
-<div class="wrapper">
-   <div class="content_wrap">
-      <div class="homepage_wrap">
-         <div class="xchange_table_wrap">
-            <div class="xchange_type_table tbl4">
-               <div class="xchange_type_table_ins">
-                  <div class="xtt_icon_wrap">
-                     <div class="xtt_left_col_icon">
+{% extends "nbase.html" %} {% load static %} {% block content %}
+<!-- categorys -->
+<div class="section card">
+    <div class="row" id="bit_exchange_box">
+        <div id="loader" hidden></div>
+        <div id="bit_exchange_results"></div>
+        <form
+            id="exchange_form"
+            method="POST"
+            action="{% url 'exchange_detail' %}"
+        >
+            {% csrf_token %}
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-3 hidden-xs hidden-sm">
                         <div
-                           class="tbl_icon js_icon_left js_icon_left_0 active"
-                           data-type="0"
-                           >
-                           <div class="tbl_icon_ins">
-                              <div class="tbl_icon_abs"></div>
-                              All
-                           </div>
+                            hidden
+                            style="margin-top: 50px"
+                            id="coin-to-send-icon-div"
+                        >
+                            <img
+                                src=""
+                                id="coin-to-send-icon-img"
+                                class="img-circle img-bordered"
+                                width="70px"
+                                height="70px"
+                            />
                         </div>
-                        
-                        {% for coin in object_list %}
+                    </div>
+                    <div class="col-md-9">
+                        <h3>
+                            <i class="fa fa-arrow-down"></i>
+                            I am Sending
+                        </h3>
+                        <div class="form-group">
+                            <select
+                                name="coin_to_send"
+                                class="
+                                    form-control form_style_1
+                                    input-lg
+                                    coin-to-send
+                                "
+                            >
+                                <option value="">Select Currency</option>
+                                {% for c in object_list %}
+                                <option
+                                    value="{{ c.pk }}"
+                                    logo="{{ c.get_logo }}"
+                                    reserve="{{ c.reserve }}"
+                                >
+                                    {{ c.name }} <b></b>
+                                    ({{ c.short_name }})
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input
+                                id="amount_to_send"
+                                name="amount_to_send"
+                                type="number"
+                                class="form-control form_style_1 input-lg"
+                            />
+                        </div>
                         <div
-                           class="tbl_icon js_icon_left js_icon_left_{{ coin.short_name }}"
-                           data-type="{{ coin.short_name }}"
-                           >
-                           <div class="tbl_icon_ins">
-                              <div class="tbl_icon_abs"></div>
-                              {{ coin.short_name }}
-                           </div>
-                        </div>
-                        {% endfor %}
-                     </div>
-                     <div class="clear"></div>
-                  </div>
-                  <div class="xtt_right_col_icon">
-                     <div
-                        class="tbl_icon js_icon_right js_icon_right_0 active"
-                        data-type="0"
+                            class="text text-muted pull-right"
+                            style="padding-bottom: 10px; font-weight: bold"
                         >
-                        <div class="tbl_icon_ins">
-                           <div class="tbl_icon_abs"></div>
-                           All
+                            <span id="exchange_rate"></span>
                         </div>
-                     </div>
-                     {% for coin in object_list %}
-                     <div
-                        class="tbl_icon js_icon_right js_icon_right_{{ coin.short_name }}"
-                        data-type="{{ coin.short_name }}"
-                        >
-                        <div class="tbl_icon_ins">
-                           <div class="tbl_icon_abs"></div>
-                           {{ coin.short_name }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-9">
+                        <h3>
+                            <i class="fa fa-arrow-up"></i>
+                            To Receive
+                        </h3>
+                        <div class="form-group">
+                            <select
+                                name="coin_to_receive"
+                                class="form-control form_style_1 input-lg coin-to-receive"
+                                id="receive-field"
+                            >
+                                <option selected>Select Currency</option>
+                            </select>
                         </div>
-                     </div>
-                     {% endfor %}
-                     <div class="clear"></div>
-                  </div>
-                  <div class="clear"></div>
-               </div>
-               <div class="xtt_table_wrap">
-                  <div class="xtt_table_title_wrap">
-                     <div class="xtt_left_col_title">
-                        <div class="xtt_table_title1">
-                           <span>You send</span>
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                class="form-control form_style_1 input-lg"
+                                id="amount_to_receive"
+                                name="amount_to_receive"
+                                readonly
+                                required
+                                value=""
+                            />
                         </div>
-                     </div>
-                     <div class="xtt_right_col_title">
-                        <div class="xtt_table_title2">
-                           <span>You receive</span>
-                        </div>
-                        <div class="xtt_table_title3">
-                           <span>Rate</span>
-                        </div>
-                        <div class="xtt_table_title4">
-                           <span>Reserve</span>
-                        </div>
-                        <div class="clear"></div>
-                     </div>
-                     <div class="clear"></div>
-                  </div>
-                  <div class="xtt_table_body_wrap">
-                     <div class="xtt_html_abs" style="background: #fff url({% static 'images/ajax-big-loader.gif' %}) no-repeat center center;"></div>
-                     <div class="xtt_left_col_table">
-                        {% for coin in object_list %}
-                        <!-- coin -->
                         <div
-                           class="js_item_left js_item_left_{{ coin.short_name }}"
-                           data-id="{{ coin.pk }}"
-                           data-type="{{ coin.short_name }}"
-                           >
-                           <div class="xtt_one_line_left">
-                              <div class="xtt_one_line_abs"></div>
-                              <div class="xtt_one_line_abs2"></div>
-                              <div class="xtt_one_line_ico_left">
-                                 <div
-                                    class="xtt_change_ico currency_logo"
-                                    style="
-                                    background-image: url({{ coin.get_logo }});
-                                    background-size: 20px;
-                                    "
-                                    ></div>
-                              </div>
-                              <div class="xtt_one_line_name_left">
-                                 <div class="xtt_one_line_name">{{ coin.short_name }}</div>
-                              </div>
-                              <div class="clear"></div>
-                           </div>
+                            class="text text-muted"
+                            style="padding-bottom: 10px; font-weight: bold"
+                        >
+                            Reserve:
+                            <span id="coin-reserve">0</span>
                         </div>
-                        <!-- end btc -->
-                        {% endfor %}
-                     </div>
-                     <div class="xtt_right_col_table">
-                        <!-- tab btc -->
-                        <div class="xtt_line_tab js_line_tab" id="js_tabnaps_1">
-                           {% for coin in object_list %}
-                           <!-- coin -->
-                           {% if not coin.short_name == "BTC" %}
-                              <a
-                                 href="{% url 'currency_pair_purchase' 'BTC' coin.short_name  %}"
-                                 class="js_exchange_link js_item_right js_item_right_{{ coin.short_name }}"
-                                 data-type="{{ coin.short_name }}"
-                                 data-direction-id="60"
-                                 >
-                                 <div class="xtt_one_line_right">
-                                    <div class="xtt_one_line_abs"></div>
-                                    <div class="xtt_one_line_abs2"></div>
-                                    <div class="xtt_one_line_ico_right">
-                                       <div class="xtt_change_ico currency_logo" style="background-image: url({{ coin.get_logo }}); background-size: 30px;"></div>
-                                    </div>
-                                    <div class="xtt_one_line_name_right">
-                                       <div class="xtt_one_line_name">{{ coin.short_name }}</div>
-                                    </div>
-                                    <div class="xtt_one_line_curs_right">
-                                       <div class="xtt_one_line_curs">{% get_rate "BTC" coin.short_name %}</div>
-                                    </div>
-                                    <div class="xtt_one_line_reserv_right">
-                                       <div class="xtt_one_line_reserv">
-                                          {{ coin.reserve|intcomma }}
-                                       </div>
-                                    </div>
-                                    <div
-                                       class="xtt_one_line_rez js_reserv"
-                                       data-id="60"
-                                       data-title="Payeer USD-Alipay CNY"
-                                       style="background: url({% static 'images/rez_r.png' %}) no-repeat center center;"
-                                       >
-                                       <div class="xtt_one_line_rez_ins">
-                                          <span>Not enough?</span>
-                                       </div>
-                                    </div>
-                                    <div class="clear"></div>
-                                 </div>
-                              </a>
-                              <!-- end coin -->
-                              {% endif %}
-                           {% endfor %}
-                        </div>
-                        <!-- end btc tab -->
-                        <!-- tab eth -->
-                        <div class="xtt_line_tab js_line_tab" id="js_tabnaps_2">
-                          {% for coin in object_list %}
-                           <!-- coin -->
-                           {% if not coin.short_name == "ETH" %}
-                              <a
-                                 href="{% url 'currency_pair_purchase' 'ETH' coin.short_name  %}"
-                                 class="js_exchange_link js_item_right js_item_right_{{ coin.short_name }}"
-                                 data-type="{{ coin.short_name }}"
-                                 data-direction-id="60"
-                                 >
-                                 <div class="xtt_one_line_right">
-                                    <div class="xtt_one_line_abs"></div>
-                                    <div class="xtt_one_line_abs2"></div>
-                                    <div class="xtt_one_line_ico_right">
-                                       <div
-                                          class="xtt_change_ico currency_logo"
-                                          style="
-                                          background-image: url({{ coin.get_logo }});
-                                          background-size: 30px;
-                                          "
-                                          ></div>
-                                    </div>
-                                    <div class="xtt_one_line_name_right">
-                                       <div class="xtt_one_line_name">{{ coin.short_name }}</div>
-                                    </div>
-                                    <div class="xtt_one_line_curs_right">
-                                       <div class="xtt_one_line_curs">{% get_rate "ETH" coin.short_name %}</div>
-                                    </div>
-                                    <div class="xtt_one_line_reserv_right">
-                                       <div class="xtt_one_line_reserv">
-                                          {{ coin.reserve }}
-                                       </div>
-                                    </div>
-                                    <div
-                                       class="xtt_one_line_rez js_reserv"
-                                       data-id="60"
-                                       data-title="Payeer USD-Alipay CNY"
-                                       style="background: url({% static 'images/rez_r.png' %}) no-repeat center center;"
-                                       >
-                                       <div class="xtt_one_line_rez_ins">
-                                          <span>Not enough?</span>
-                                       </div>
-                                    </div>
-                                    <div class="clear"></div>
-                                 </div>
-                              </a>
-                              <!-- end coin -->
-                              {% endif %}
-                           {% endfor %}
-                        </div>
-                        <!-- end eth tab -->
-                        <!-- tab usd -->
+                    </div>
+                    <div class="col-md-3 hidden-xs hidden-sm">
                         <div
-                           class="xtt_line_tab js_line_tab"
-                           id="js_tabnaps_3"
-                           >
-                          {% for coin in object_list %}
-                           <!-- coin -->
-                           {% if not coin.short_name == "USD" %}
-                              <a
-                                 href="{% url 'currency_pair_purchase' 'USD' coin.short_name  %}"
-                                 class="js_exchange_link js_item_right js_item_right_{{ coin.short_name }}"
-                                 data-type="{{ coin.short_name }}"
-                                 data-direction-id="60"
-                                 >
-                                 <div class="xtt_one_line_right">
-                                    <div class="xtt_one_line_abs"></div>
-                                    <div class="xtt_one_line_abs2"></div>
-                                    <div class="xtt_one_line_ico_right">
-                                       <div
-                                          class="xtt_change_ico currency_logo"
-                                          style="
-                                          background-image: url({{ coin.get_logo }});
-                                          background-size: 30px;
-                                          "
-                                          ></div>
-                                    </div>
-                                    <div class="xtt_one_line_name_right">
-                                       <div class="xtt_one_line_name">{{ coin.short_name }}</div>
-                                    </div>
-                                    <div class="xtt_one_line_curs_right">
-                                       <div class="xtt_one_line_curs">{% get_rate "USD" coin.short_name %}</div>
-                                    </div>
-                                    <div class="xtt_one_line_reserv_right">
-                                       <div class="xtt_one_line_reserv">
-                                          {{ coin.reserve }}
-                                       </div>
-                                    </div>
-                                    <div
-                                       class="xtt_one_line_rez js_reserv"
-                                       data-id="60"
-                                       data-title="Payeer USD-Alipay CNY"
-                                       style="background: url({% static 'images/rez_r.png' %}) no-repeat center center;"
-                                       >
-                                       <div class="xtt_one_line_rez_ins">
-                                          <span>Not enough?</span>
-                                       </div>
-                                    </div>
-                                    <div class="clear"></div>
-                                 </div>
-                              </a>
-                              <!-- end coin -->
-                              {% endif %}
-                           {% endfor %}
-                        </div>
-                        <!-- end tab usd -->
-                        <!-- NAIRA TAB -->
-                        <div
-                           class="xtt_line_tab js_line_tab"
-                           id="js_tabnaps_4"
-                           >
-                           {% for coin in object_list %}
-                           <!-- coin -->
-                           {% if not coin.short_name == "NGN" %}
-                              <a
-                                 href="{% url 'currency_pair_purchase' 'NGN' coin.short_name  %}"
-                                 class="js_exchange_link js_item_right js_item_right_{{ coin.short_name }}"
-                                 data-type="{{ coin.short_name }}"
-                                 data-direction-id="60"
-                                 >
-                                 <div class="xtt_one_line_right">
-                                    <div class="xtt_one_line_abs"></div>
-                                    <div class="xtt_one_line_abs2"></div>
-                                    <div class="xtt_one_line_ico_right">
-                                       <div
-                                          class="xtt_change_ico currency_logo"
-                                          style="
-                                          background-image: url({{ coin.get_logo }});
-                                          background-size: 30px;
-                                          "
-                                          ></div>
-                                    </div>
-                                    <div class="xtt_one_line_name_right">
-                                       <div class="xtt_one_line_name">{{ coin.short_name }}</div>
-                                    </div>
-                                    <div class="xtt_one_line_curs_right">
-                                       <div class="xtt_one_line_curs">{% get_rate "NGN" coin.short_name %}</div>
-                                    </div>
-                                    <div class="xtt_one_line_reserv_right">
-                                       <div class="xtt_one_line_reserv">
-                                          {{ coin.reserve }}
-                                       </div>
-                                    </div>
-                                    <div
-                                       class="xtt_one_line_rez js_reserv"
-                                       data-id="60"
-                                       data-title="Payeer USD-Alipay CNY"
-                                       style="background: url({% static 'images/rez_r.png' %}) no-repeat center center;"
-                                       >
-                                       <div class="xtt_one_line_rez_ins">
-                                          <span>Not enough?</span>
-                                       </div>
-                                    </div>
-                                    <div class="clear"></div>
-                                 </div>
-                              </a>
-                              <!-- end coin -->
-                              {% endif %}
-                           {% endfor %}
-                        </div>
-                        <!-- END NAIRA TAB -->
-                        <div class="clear"></div>
-                     </div>
-                     <div class="clear"></div>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="home_text_wrap">
-            <div class="home_text_ins">
-               <div class="home_text_abs" style="background: #fff url({% static 'images/blick.png' %}) no-repeat center 54px;"></div>
-               <div class="home_text_block" style="  background: url({% static 'images/text_ico.png' %}) no-repeat 0px 0;">
-                  <div class="home_text_title">Welcome to BoyeXchange.com</div>
-                  <div class="home_text_div">
-                     <div class="text">
-                        <p>
-                           Our On-line service is designed for those who wants to
-                           exchange these types of electronic currencies quickly,
-                           safely and at a favorable rate: Bitcoin, Ether,
-                           USDT, Naira.
-                        </p>
-                        <p>
-                           Our service is not limited to these opportunities only.
-                           The project has a loyalty program, cumulative discount
-                           and affiliate program, taking advantage of which you
-                           will be able to make the exchange of electronic
-                           currencies on more favorable terms. To use it you simply
-                           need to register on our site.
-                        </p>
-                        <p>
-                           Our exchange of electronic currencies is a system
-                           created on the basis of modern software and containing
-                           all the necessary functions for convenient and safe
-                           conversion of the most common types of electronic money.
-                           During our work we have gained a reputation of a trusted
-                           partner and we do everything possible to make your
-                           experience of our service to be only favorable.
-                        </p>
-                        <div class="clear"></div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="home_reviews_wrap">
-            <div class="home_reviews_ins">
-               <div class="home_reviews_abs" style="background: #2d3e50 url({% static 'images/blick.png' %}) no-repeat center 54px;"></div>
-               <div class="home_reviews_block" style="background: url({% static 'images/reviews_ico_r.png' %}) no-repeat 0px 0;">
-                  <div class="home_reviews_title">Reviews</div>
-                  <div class="home_reviews_div_wrap">
-                     <div class="home_reviews_div">
-                         {% for review in reviews %}
-                            <div class="home_reviews_one">
-                            <div class="home_reviews_abs" style="background: #2d3e50 url({% static 'images/blick.png' %}) no-repeat center 54px;"></div>
-                            <div class="home_reviews_date">
-                                {{ review.timestamp|date:"DATETIME_FORMAT" }}
-                            </div>
-                            <div class="clear"></div>
-                            <div class="home_reviews_content">
-                                {{ review.name }}
-                            </div>
-                            <div class="home_reviews_content">
-                                {{ review.body }}
-                            </div>
-                            </div>
-                        {% endfor %}
-                        <div class="clear"></div>
-                     </div>
-                  </div>
-                  <a href="{% url 'reviews' %}" class="home_reviews_more" >All reviews</a>
-                  <div class="clear"></div>
-               </div>
-            </div>
-         </div>
-         <div class="home_lchange_wrap">
-            <div class="home_lchange_wrap_ins">
-               <div class="home_lchange_block" style="background: url({% static 'images/lastobmen_ico_r.png' %}) no-repeat 0px 0;">
-                  <div class="home_lchange_title">Last exchanges</div>
-                  <div class="home_lchange_div_wrap">
-                     <div class="home_lchange_div">
-                         {% for tran in transactions %}
-                         <div class="home_lchange_one">
-                           <div class="home_lchange_date">{{ tran.timestamp|date:"DATETIME_FORMAT" }}</div>
-                           <div class="home_lchange_body">
-                              <div class="home_lchange_why">
-                                 <div
-                                    class="home_lchange_ico currency_logo" style="background-image: url({{ tran.pair.currency.get_logo }});"></div>
-                                 <div class="home_lchange_txt">
-                                    <div class="home_lchange_sum">{{ tran.coin_amount }}</div>
-                                    <div class="home_lchange_name">{{ tran.pair.currency.short_name }}</div>
-                                 </div>
-                                 <div class="clear"></div>
-                              </div>
-                              <div class="home_lchange_arr" style="background: url({% static 'images/harr.png' %}) no-repeat 0 center;"></div>
-                              <div class="home_lchange_why">
-                                 <div
-                                    class="home_lchange_ico currency_logo"
-                                    style="
-                                    background-image: url({{ tran.pair.pair.get_logo }});
-                                    "
-                                    ></div>
-                                 <div class="home_lchange_txt">
-                                    <div class="home_lchange_sum">{{ tran.pair_amount }}</div>
-                                    <div class="home_lchange_name">{{ tran.pair.pair.short_name }}</div>
-                                 </div>
-                              </div>
-                              <div class="clear"></div>
-                           </div>
-                           <div class="clear"></div>
-                        </div>
-                        {% endfor %}
-                        <div class="clear"></div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="home_news_wrap">
-            <div class="home_news">
-               <div class="home_news_abs"></div>
-               <div class="home_news_block" style="background: url({% static 'images/news_ico_r.png' %}) no-repeat 0px 0;">
-                  <div class="home_news_title">News</div>
-                  <div class="home_news_div_wrap">
-                     <div class="home_news_div">
-                         {% for item in news %}
-                         <div class="home_news_one">
-                            <div class="home_news_one_abs"></div>
-                            <div class="home_news_one_ins">
-                                <div class="home_news_one_date">{{ item.timestamp|date:"DATETIME_FORMAT" }}</div>
-                                <div class="clear"></div>
-                                <div class="home_news_one_content">
-                                    <a href="#" >{{ item.title|title }}</a>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                        <div class="clear"></div>
-                     </div>
-                  </div>
-                  <a href="{% url 'news' %}" class="home_news_more"
-                     >All news</a
-                     >
-                  <div class="clear"></div>
-               </div>
-            </div>
-         </div>
-         <div class="home_reserv_wrap">
-            <div class="home_reserv_ins">
-               <div class="home_reserv_abs"></div>
-               <div class="home_reserv_block">
-                  <div class="home_reserv_block_ins">
-                     <div class="home_reserv_title">Currency reserve</div>
-                     <div class="home_reserv_many">
-                        <div class="home_reserv_many_ins">
-                           {% for coin in object_list %}
-                           <div class="one_home_reserv">
-                              <div
-                                 class="one_home_reserv_ico currency_logo"
-                                 style="
-                                 background-image: url({{ coin.get_logo }});
-                                 "
-                                 ></div>
-                              <div class="one_home_reserv_block">
-                                 <div class="one_home_reserv_title">{{ coin.name }}</div>
-                                 <div class="one_home_reserv_sum">{{ coin.reserve|intcomma }}</div>
-                              </div>
-                              <div class="clear"></div>
-                           </div>
-                           {% endfor %}
-                           <div class="clear"></div>
-                           <div class="clear"></div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="home_partner_wrap">
-            <div class="home_partner_ins">
-               <div class="home_partner_block">
-                  <div class="home_partner_title">Partners</div>
-                   <div class="home_partner_one">
-                     <img src="{% static 'images/bitcoin-bottom.png' %}" alt="" />
-                  </div>
-                  <div class="home_partner_one">
-                     <a
-                        href="#"
-                        target="_blank"
+                            hidden
+                            style="margin-top: 50px"
+                            id="coin-to-receive-icon-div"
                         >
-                     <img src="{% static 'images/okpay-bottom.png' %}" alt="" />
-                     </a>
-                  </div>
-                  <div class="home_partner_one">
-                     <a
-                        href="#"
-                        target="_blank"
-                        >
-                     <img src="{% static 'images/pm-bottom.png' %}" alt="" />
-                     </a>
-                  </div>
-                  <div class="home_partner_one">
-                     <a href="#" target="_blank">
-                     <img src="{% static 'images/prb.png' %}" alt="" />
-                     </a>
-                  </div>
-                  <div class="home_partner_one">
-                     <a
-                        href="#"
-                        target="_blank"
-                        >
-                     <img src="{% static 'images/advb.png' %}" alt="" />
-                     </a>
-                  </div>
-                  <div class="home_partner_one">
-                     <a
-                        href="#"
-                        target="_blank"
-                        >
-                     <img src="{% static 'images/okb.png' %}" alt="" />
-                     </a>
-                  </div>
-                  <div class="clear"></div>
-               </div>
+                            <img
+                                src=""
+                                id="coin-to-receive-icon-img"
+                                class="img-circle img-bordered"
+                                width="72px"
+                                height="72px"
+                            />
+                        </div>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-      <div class="clear"></div>
-   </div>
+            <div class="col-md-12">
+                <div
+                    style="
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    "
+                >
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i
+                            class="fa fa-refresh"
+                        ></i>
+                        Exchange&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
-{% endblock %}
+<!-- category-ad -->
+<!-- main -->
+{% endblock content %} {% block script %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        let currencyIDToSend = "";
+        let currencyIDToReceive = "";
+        let rate = 0;
+
+        $(".coin-to-send").change(function () {
+            const logo = $("option:selected", this).attr("logo");
+            const reserve = $("option:selected", this).attr("reserve");
+            const id = $(this).val();
+            currencyIDToSend = id;
+            $("#coin-to-send-icon-img").attr("src", logo);
+            $("#coin-to-send-icon-div").removeAttr("hidden");
+            $("#coin-to-receive-icon-div").attr("hidden", true);
+
+            $.ajax({
+                url: "{% url 'get_pairs' %}",
+                data: { id },
+                beforeSend: function () {
+                    $("#loader").removeAttr("hidden");
+                },
+                complete: function () {
+                    $("#loader").attr("hidden", true);
+                },
+                success: function (data) {
+                    $("#receive-field").html(
+                        '<option selected="selected">Select Currency</option>'
+                    );
+                    data.currencies.map((item) =>
+                        $("#receive-field").append(
+                            $("<option>", {
+                                value: item.id,
+                                text: item.name,
+                                logo: item.logo,
+                                reserve: item.reserve,
+                            })
+                        )
+                    );
+                },
+            });
+        });
+
+        $(".coin-to-receive").change(function () {
+            const logo = $("option:selected", this).attr("logo");
+            const reserve = $("option:selected", this).attr("reserve");
+            const id = $(this).val();
+            currencyIDToReceive = id;
+
+            $("#coin-to-receive-icon-img").attr("src", logo);
+            $("#coin-to-receive-icon-div").removeAttr("hidden");
+
+            $("#coin-reserve").text(reserve);
+            $("#amount_to_receive").attr("max", reserve);
+
+            $.ajax({
+                url: "{% url 'get_pair_rate' %}",
+                data: { currencyIDToSend, currencyIDToReceive },
+                beforeSend: function () {
+                    $("#loader").removeAttr("hidden");
+                },
+                complete: function () {
+                    $("#loader").attr("hidden", true);
+                },
+                success: function (data) {
+                    rate = data.rate;
+                    $("#exchange_rate").text(data.message);
+                },
+            });
+        });
+
+        $("#amount_to_send").on("keyup change", function () {
+            const amount = $(this).val();
+            $("#amount_to_receive").val(amount * rate);
+        });
+    });
+</script>
+{% endblock script %}
