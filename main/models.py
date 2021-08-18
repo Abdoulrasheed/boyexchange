@@ -31,8 +31,8 @@ class ExchangePair(models.Model):
     
 class Transaction(models.Model):
     pair = models.ForeignKey(ExchangePair, verbose_name=_("pair"), on_delete=models.CASCADE)
-    coin_amount = models.FloatField(_("currency price"))
-    pair_amount = models.FloatField(_("pair price"))
+    coin_amount = models.FloatField(_("amount paid"))
+    pair_amount = models.FloatField(_("amount to receive"))
     timestamp = models.DateTimeField(_(""), auto_now_add=True)
     transaction_hash = models.CharField(_("transaction hash"), max_length=24)
     has_paid = models.BooleanField(_("paid"), default=False)

@@ -1,19 +1,36 @@
-{% extends "base.html" %}
-{% load static %}
-
-{% block title %} Thank you for your payment {% endblock %}
-
-{% block content %}
-<div class="content_wrap">
-    <div style="display: flex; justify-content: space-around; align-items: center;">
-        <div></div>
-        <div style="display: flex; flex-direction: column; align-items: center; align-content: center;" >
-            <p style="font-size: 20px; margin-bottom: 10px;">Transaction successful</p>   
-            <img src="{% static 'images/success.gif' %}" width="200" /> 
-            <p style="font-size: 20px; margin-top: 10px;">You shall receive your fund soon</p>   
+{% extends "nbase.html" %} {% load static %} {% block title %} Thank you for
+your payment {% endblock %} {% block content %}
+<div class="section" style="background-color: #e3eae6">
+    <div class="row" id="bit_exchange_box">
+        <div id="bit_exchange_results"></div>
+        <div class="row">
+            <div
+                style="
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                "
+            >
+                <div></div>
+                <div
+                    style="
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        align-content: center;
+                    "
+                >
+                    <p style="font-size: 20px; margin-bottom: 10px">
+                        Transaction successful
+                    </p>
+                    <img src="{% static 'images/success.gif' %}" width="200" />
+                    <p style="font-size: 20px; margin-top: 10px">
+                        You shall receive your fund soon
+                    </p>
+                </div>
+                <div></div>
+            </div>
         </div>
-        <div></div>
     </div>
-    <div class="content"></div>
 </div>
 {% endblock %}

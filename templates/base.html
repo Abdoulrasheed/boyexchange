@@ -1,344 +1,429 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en-US" dir="ltr">
+<html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="profile" href="https://gmpg.org/xfn/11" />
-    <title>{% block title %} Boy XChange - Home {% endblock %}</title>
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com/" />
-    <link
-      rel="stylesheet"
-      id="premium-all-style-css"
-      href="{% static 'css/main.css' %}"
-      type="text/css"
-      media="all"
-    />
-    <link
-      rel="stylesheet"
-      id="open-sans-css"
-      href="{% static 'css/fonts.css' %}"
-      type="text/css"
-      media="all"
-    />
-    <link
-      rel="stylesheet"
-      id="theme-style-css"
-      href="{% static 'css/style.css' %}"
-      type="text/css"
-      media="all"
-    />
-    <!-- <link
-      rel="stylesheet"
-      id="wp-block-library-css"
-      href="{% static 'css/style.min.css' %}"
-      type="text/css"
-      media="all"
-    /> -->
-    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
-    <!-- <script type="text/javascript" src="{% static 'js/jqueryui.js' %}"></script>
-    <script
-      type="text/javascript"
-      src="{% static 'js/script.min(2).js' %}"
-    ></script>
-    <script
-      type="text/javascript"
-      src="{% static 'js/script.min(3).js' %}"
-    ></script>
-    <script
-      type="text/javascript"
-      src="{% static 'js/clipboard.js' %}"
-    ></script>
-    <script
-      type="text/javascript"
-      src="{% static 'js/script.min(5).js' %}"
-    ></script>
-    <script
-      type="text/javascript"
-      src="{% static 'js/jquery-select.js' %}"
-    ></script>
-    <script
-      type="text/javascript"
-      src="{% static 'js/script.min(6).js' %}"
-    ></script>
-    <script
-      type="text/javascript"
-      src="{% static 'js/script.min(7).js' %}"
-    ></script> -->
-    <script type="text/javascript" src="{% static 'js/site.js' %}"></script>
-    <!-- <script
-      type="text/javascript"
-      src="{% static 'js/script.min(8).js' %}"
-    ></script>
-    <script
-      type="text/javascript"
-      src="{% static 'js/jqueryqrcode.js' %}"
-    ></script> -->
-    <script>
-    var mtcaptchaConfig = {
-      "sitekey": "MTPublic-qPdyD4iMZ",
-      "widgetSize": "mini",
-      
-     };
-   (function(){var mt_service = document.createElement('script');mt_service.async = true;mt_service.src = 'https://service.mtcaptcha.com/mtcv1/client/mtcaptcha.min.js';(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(mt_service);
-   var mt_service2 = document.createElement('script');mt_service2.async = true;mt_service2.src = 'https://service2.mtcaptcha.com/mtcv1/client/mtcaptcha2.min.js';(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(mt_service2);}) ();
- </script>
-    <script
-      type="text/javascript"
-      src="{% static 'js/script.js' %}"
-    ></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
-      name="keywords"
-      content="Boy Exchange,Bitcoin BTC Exchanger,USD Exchanger,Ether Exchanger, Naira Exchanger,BTC Exchange,BTC Exchanger,Bitcoin(BTC) Exchange,Buy BTC, Exchange BTC,Sell BTC"
+      name="description"
+      content="Your Plug’s Plug"
     />
-    <meta name="description" content="No 1 Currency Exchange Plartform in Nigeria" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'new/updated.css' %}"
+    />
+
+    <title>{% block title %} Boy XChange - Home {% endblock %}</title>
+    <!-- Primary Meta Tags -->
+    <meta
+      name="title"
+      content="Boyexchange — Crypto Currency Exchange We buy & sell all coins, Gift cards Trusted, Fast, Reliable."
+    />
+    <meta
+      name="description"
+      content="Your Plug’s Plug"
+    />
+
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://boyexchange.com/" />
-    <meta property="og:site_name" content="boyExchange.com" />
+    <meta
+      property="og:title"
+      content="Boyexchange — Crypto Currency Exchange We buy & sell all coins, Gift cards Trusted, Fast, Reliable."
+    />
     <meta
       property="og:description"
-      content="No 1 Currency Exchange Plartform in Nigeria"
+      content="Your Plug’s Plug"
     />
-    <meta property="og:title" content="boyexchange.com" />
+    <meta property="og:image" content="{% static 'images/logo.png' %}" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://boyexchange.com/" />
+    <meta
+      property="twitter:title"
+      content="Boyexchange — Crypto Currency Exchange We buy & sell all coins, Gift cards Trusted, Fast, Reliable."
+    />
+    <meta
+      property="twitter:description"
+      content="Your Plug’s Plug"
+    />
+    <meta property="twitter:image" content="{% static 'images/logo.png' %}" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{% static 'new/bootstrap.css' %}" />
+    <script src="https://use.fontawesome.com/fd30e1cbd3.js"></script>
+
+    <link rel="stylesheet" href="{% static 'new/owl.css' %}" />
+    <link rel="stylesheet" href="{% static 'new/slidr.css' %}" />
+    <link rel="stylesheet" href="{% static 'new/plan.css' %}" />
+    <link rel="stylesheet" href="{% static 'new/main.css' %}" />
+    <link id="preset" rel="stylesheet" href="{% static 'new/preset2.css' %}" />
+    <link rel="stylesheet" href="{% static 'new/responsive.css' %}" />
     <link
       rel="shortcut icon"
       href="{% static 'images/logo.png' %}"
       type="image/png"
     />
-    <linkrel="icon" href="{% static 'images/logo.png' %}" type="image/png"/>
-    <style type="text/css" id="custom-background-css">
-      body.custom-background {
-        background-color: #2072bf;
-        background-image: url("{% static 'images/bg.png' %}");
-        background-position: left top;
-        background-size: auto;
-        background-repeat: repeat;
-        background-attachment: scroll;
-      }
-    </style>
+    <linkrel ="icon" href="{% static 'images/logo.png' %}" type="image/png" />
+    <!-- Styles -->
+
+    <!-- font -->
+    <link href="{% static 'new/css.css' %}" rel="stylesheet" type="text/css" />
+    <link
+      href="{% static 'new/css_002.css' %}"
+      rel="stylesheet"
+      type="text/css"
+    />
   </head>
   <body
-    class="
-      {% if request.path == "/" %} home {% endif %}
-      color_r
-      page-template
-      page-template-pn-homepage
-      page-template-pn-homepage-php
-      page
-      page-id-4
-      custom-background
-    "
-    data-new-gr-c-s-check-loaded="14.1022.0"
+    data-new-gr-c-s-check-loaded="14.1026.0"
     data-gr-ext-installed=""
     cz-shortcut-listen="true"
   >
-    <div id="container">
-      <!-- top bar -->
-      <div class="topbar_wrap" id="fix_div">
-        <div
-          class="topbar_ins"
-          id="fix_elem"
-          style="position: absolute; top: 0px"
-        >
-          <div class="topbar">
-            <div class="tolbar_lang">
-              <div class="langlist_div">
-                <div class="langlist_title" style="background: url({% static 'images/l_arr.png' %}) no-repeat right center;"><span>en</span></div>
-                <div class="langlist_ul">
-                  <a href="{% url 'home' %}" class="langlist_li">
-                    <div class="langlist_liimg">
-                      <img src="{% static 'images/en_US.png' %}" alt="" />
+    <!-- header -->
+    <header id="header" class="clearfix">
+      <!-- navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <!-- navbar-header -->
+          <div class="navbar-header">
+            <button
+              type="button"
+              class="navbar-toggle collapsed"
+              data-toggle="collapse"
+              data-target="#navbar-collapse"
+            >
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'home' %}">
+              <img
+                width="100"
+                class="img-responsive"
+                src="{% static 'new/logo.png' %}"
+                alt="Logo"
+              />
+            </a>
+          </div>
+          <!-- /navbar-header -->
+          <div class="collapse navbar-collapse" id="navbar-collapse">
+            <div class="navbar-left">
+              <ul class="nav navbar-nav">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li>
+                  <a href="{% url 'news' %}">News</a>
+                </li>
+                <li>
+                  <a href="{% url 'reviews' %}">Reviews</a>
+                </li>
+                <li>
+                  <a href="#">Affiliate</a>
+                </li>
+              </ul>
+            </div>
+            <!-- nav-right -->
+            <div class="nav-right">
+              <!-- language-dropdown -->
+              <div class="dropdown language-dropdown">
+                <i class="fa fa-globe"></i>
+                <a data-toggle="dropdown" href="#">
+                  <span class="change-text">English</span>
+                  <i class="fa fa-angle-down"></i
+                ></a>
+                <ul class="dropdown-menu language-change">
+                  <li>
+                    <a href="#">English</a>
+                  </li>
+                </ul>
+              </div>
+              <!-- language-dropdown -->
+            </div>
+            <!-- nav-right -->
+          </div>
+        </div>
+        <!-- container -->
+      </nav>
+      <!-- navbar -->
+    </header>
+    <!-- header -->
+
+    <!-- main -->
+    <section id="main" class="clearfix home-default">
+      <div class="container">
+        <!-- main-content -->
+        <div class="main-content">
+          <!-- row -->
+          <div class="row">
+            <!-- product-list -->
+            <div class="col-md-9">
+              {% block content %} {% endblock content %}
+              <!-- featureds -->
+              <div class="section featureds">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="section-title featured-top">
+                      <h4>Awesome <strong>Testimonials</strong></h4>
                     </div>
-                    English
-                  </a>
+                  </div>
+                </div>
+                <!-- featured-slider -->
+                <div class="featured-slider">
+                  <div
+                    id="featured-slider"
+                    class="owl-carousel owl-theme owl-loaded"
+                  >
+                    <div class="owl-stage-outer">
+                      <div
+                        class="owl-stage"
+                        style="
+                          transform: translate3d(0px, 0px, 0px);
+                          transition: all 0s ease 0s;
+                          width: 535.334px;
+                        "
+                      >
+                        <div
+                          class="owl-item active"
+                          style="width: 267.667px; margin-right: 0px"
+                        >
+                          <div class="alert alert-info">
+                            <p>There is no testimonials yet</p>
+                          </div>
+                        </div>
+                        <div
+                          class="owl-item active"
+                          style="width: 267.667px; margin-right: 0px"
+                        >
+                          <div class="owl-stage-outer">
+                            <div class="owl-stage"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="owl-controls">
+                      <div class="owl-nav"></div>
+                    </div>
+                  </div>
+                  <!-- featured-slider --><br />
+                </div>
+                <!-- #featured-slider -->
+              </div>
+              <!-- featureds -->
+              <!-- trending-ads -->
+              <div class="section trending-ads">
+                <div class="section-title tab-manu">
+                  <h4>10 Recent Transactions</h4>
+                </div>
+                <br />
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Send</th>
+                            <th>Receive</th>
+                            <th>Amount</th>
+                            <th>Transaction ID</th>
+                            <th>Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for tran in transactions %}
+                          <tr>
+                            <td>
+                              <img
+                                src="{{ tran.pair.currency.get_logo }}"
+                                width="20px"
+                                height="20"
+                              />
+                              {{ tran.pair.currency.name }} ({{ tran.pair.currency.short_name }})
+                            </td>
+                            <td>
+                              <img
+                                src="{{ tran.pair.pair.get_logo }}"
+                                width="20px"
+                                height="20"
+                              />
+                              {{ tran.pair.pair.name }} ({{ tran.pair.pair.short_name }})
+                            </td>
+                            <td>{{ tran.coin_amount }}</td>
+                            <td>{{ tran.transaction_hash|truncatechars:10 }}</td>
+                            
+                            {% if tran.has_paid %}
+                            <td>
+                              <span class="label label-success">
+                                <i class="fa fa-check"></i> Success</span>
+                              </td>
+                              {% else %}
+                              <td>
+                                <span class="label label-danger">
+                                  <i class="fa fa-times"></i> Pending</span>
+                                </td>
+                              {% endif %}
+                          </tr>
+                          {% empty %}
+                          <tr>
+                            <td colspan="5">No trasactions</td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--trending-ads -->
+              <br /><br />
+            </div>
+            <!-- product-list -->
+            <!-- advertisement -->
+            <div class="col-md-3">
+              <div class="section">
+                <div class="section-title tab-manu">
+                  <h4>Track exchange</h4>
+                </div>
+                <br />
+                <form>
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="exchange_id"
+                      placeholder="Type your exchange id"
+                      required=""
+                    />
+                  </div>
+                  <button
+                    disabled
+                    class="btn btn-primary btn-block"
+                    name="track"
+                  >
+                    Track
+                  </button>
+                </form>
+              </div>
+              <div class="section">
+                <div class="section-title tab-manu">
+                  <h4>Our Reserve</h4>
+                </div>
+                <br />
+                <div class="row">
+                  {% for coin in coins %}
+                  <div class="col-md-12" style="margin-bottom: 10px">
+                    <img
+                      src="{{ coin.get_logo }}"
+                      class="img-circle img-bordered pull-left"
+                      width="42px"
+                      height="42px"
+                    />
+                    <span class="pull-left" style="margin-left: 5px">
+                      <span style="font-size: 15px; font-weight: bold"
+                        >{{ coin.name }} - {{ coin.short_name }}</span
+                      ><br />
+                      <span class="text text-muted">{{ coin.reserve }}</span>
+                    </span>
+                  </div>
+                  <br /><br />
+                  {% endfor %}
                 </div>
               </div>
             </div>
-            <div class="topbar_icon icq" style="background: url({% static 'images/icq.png' %}) no-repeat left center;">+2348000000000</div>
-            <div class="topbar_icon email" style="  background: url({% static 'images/email.png' %}) no-repeat left center;">
-              <a href="mailto:info@boyxchange.com">info@boyxchange.com</a>
-            </div>
-            <a href="/admin/" class="toplink toplink_signin"
-              >Sign in</a
-            >
-            <div class="clear"></div>
+            <!-- advertisement -->
           </div>
+          <!-- row -->
         </div>
+        <!-- main-content -->
       </div>
-      <!-- end top bar -->
-      <!-- top menu -->
-      <div class="tophead_wrap">
-        <div class="tophead_ins">
-          <div class="tophead">
-            <div class="logoblock">
-              <div class="logoblock_ins">
-                <a href="{% url 'home' %}">
-                  <img src="{% static 'images/logo.png' %}" alt="logo" />
-                </a>
+      <!-- container -->
+    </section>
+    <!-- footer -->
+    <footer id="footer" class="clearfix">
+      <!-- footer-top -->
+      <section class="footer-top clearfix">
+        <div class="container">
+          <div class="row">
+            <!-- footer-widget -->
+            <div class="col-sm-3">
+              <div class="footer-widget">
+                <h3>Quick Links</h3>
+                <ul>
+                  <li><a href="#">News</a></li>
+                  <li>
+                    <a href="#">Testimonials</a>
+                  </li>
+                  <li>
+                    <a href="#">Reviews</a>
+                  </li>
+                </ul>
               </div>
             </div>
-            <div class="topmenu js_menu">
-              <ul id="menu-2" class="hmenu">
-                <div class="ugmenu"></div>
-                <li
-                  id="menu-item-30"
-                  class="
-                    menu-item
-                    menu-item-type-post_type
-                    menu-item-object-page menu-item-home
-                    current-menu-item
-                    page_item page-item-4
-                    current_page_item
-                    first_menu_li
-                    menu-item-30
-                  "
-                >
-                  <a href="{% url 'home' %}" aria-current="page"
-                    ><span>Home</span></a
-                  >
-                </li>
-                <li
-                  id="menu-item-32"
-                  class="
-                    menu-item
-                    menu-item-type-post_type
-                    menu-item-object-page menu-item-32
-                  "
-                >
-                  <a href="{% url 'news' %}"><span>News</span></a>
-                </li>
-                <li
-                  id="menu-item-33"
-                  class="
-                    menu-item
-                    menu-item-type-post_type
-                    menu-item-object-page menu-item-33
-                  "
-                >
-                  <a href="{% url 'reviews' %}"
-                    ><span>Reviews</span></a
-                  >
-                </li>
-                <li
-                  id="menu-item-176"
-                  class="
-                    menu-item
-                    menu-item-type-post_type
-                    menu-item-object-page menu-item-176
-                  "
-                >
-                  <a href="#"
-                    ><span>Affiliate</span></a
-                  >
-                </li>
-              </ul>
-              <div class="clear"></div>
+            <!-- footer-widget -->
+            <!-- footer-widget -->
+            <div class="col-sm-3">
+              <div class="footer-widget">
+                <h3>Support</h3>
+                <ul>
+                  <li>
+                    <a href="#">Terms of services</a>
+                  </li>
+                  <li>
+                    <a href="#">Privacy Policy</a>
+                  </li>
+                  <li><a href="#">About</a></li>
+                  <li><a href="#">Contact</a></li>
+                </ul>
+              </div>
             </div>
-            <div class="clear"></div>
+            <!-- footer-widget -->
+            <div class="col-sm-3">
+              <div class="footer-widget social-widget">
+                <h3>Follow us on</h3>
+                <ul>
+                  <li>
+                    <a target="_blank" href="https://www.instagram.com/boy_exchange/"
+                      ><i class="fa fa-facebook-official"></i>Instagram</a
+                    >
+                  </li>
+                  <li>
+                    <a target="_blank" href="https://wa.me/+2348063086302/"
+                      ><i class="fa fa-twitter-square"></i>Whatsapp</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- footer-widget -->
+            <div class="col-sm-3">
+              <div class="footer-widget news-letter">
+                <h3>Language</h3>
+                <ul>
+                  <li><a href="#">English</a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- footer-widget -->
           </div>
+          <!-- row -->
+        </div>
+        <!-- container -->
+      </section>
+      <!-- footer-top -->
+      <div class="footer-bottom clearfix text-center">
+        <div class="container">
+          <p>Boyexchange © {% now "Y" %}</p>
         </div>
       </div>
-      <!-- Main Content -->
-      {% block content %} {% endblock %}
-      <!-- End Main Content -->
-      <!-- footer -->
-      <div class="footer_wrap" style="background: #252927 url({% static 'images/foot.png' %});">
-        <div class="footer">
-          <div class="footer_left">
-            <div class="copyright">
-              <p>&copy; {% now "Y" %} Boy Exchange, All rights reserved</p>
-            </div>
-            <div class="footer_menu">
-              <ul id="menu-3" class="hmenu">
-                <li
-                  id="menu-item-35"
-                  class="
-                    menu-item
-                    menu-item-type-post_type
-                    menu-item-object-page
-                    first_menu_li
-                    menu-item-35
-                  "
-                >
-                  <a href="#"><span>Sitemap</span></a>
-                </li>
-                <li
-                  id="menu-item-36"
-                  class="
-                    menu-item
-                    menu-item-type-post_type
-                    menu-item-object-page menu-item-36
-                  "
-                >
-                  <a href="#"><span>Caution</span></a>
-                </li>
-                <li
-                  id="menu-item-77"
-                  class="
-                    menu-item
-                    menu-item-type-post_type
-                    menu-item-object-page
-                    last_menu_li
-                    menu-item-77
-                  "
-                >
-                  <a href="#"><span>Site rules</span></a>
-                </li>
-              </ul>
-              <div class="clear"></div>
-            </div>
-          </div>
-          <div class="footer_center">
-            <div class="footer_soc">
-              <a href="#" class="social_link" target="_blank" rel="nofollow"
-                ><img src="{% static 'images/vk-ico.png' %}" alt=""
-              /></a>
-              <a
-                href="https://www.facebook.com/sharer/sharer.php?u=https://www.boyexchange.com"
-                class="social_link"
-                target="_blank"
-                rel="nofollow"
-                ><img src="{% static 'images/fb-ico.png' %}" alt=""
-              /></a>
-              <a
-                href="https://twitter.com/share?url=https://www.boyexchange.com"
-                class="social_link"
-                target="_blank"
-                rel="nofollow"
-                ><img src="{% static 'images/tw-ico.png' %}" alt=""
-              /></a>
-              <div class="clear"></div>
-            </div>
-            <a href="#" class="mobile_link" style=" background: url({% static 'images/mobile.png' %}) no-repeat 0 center;">Download Mobile App</a>
-            <div class="clear"></div>
-          </div>
-          <div class="footer_right">
-            <div class="footer_phone" style="background: url({% static 'images/phone.png' %}) no-repeat left center;">
-              <span>+2347000000000</span>
-            </div>
-            <div class="footer_timetable">
-              <p>
-                Mon – Fri 10 a.m. Till 11 p.m.<br />
-                Sat – Sun free time.
-              </p>
-            </div>
-          </div>
-          <div class="clear"></div>
-        </div>
-      </div>
-      <!-- end footer -->
-    </div>
-    <div id="topped" class="js_to_top js_show_top" style="display: none; background: #8f8f8f url({% static 'images/topped.png' %}) no-repeat center center;">
-      <span></span>
-    </div>
-    <div class="statuswork_div status_op0 toleft">
-      <div class="statuswork_div_ins">
-        <div class="statuswork">
-          <div class="statuswork_ins" style="background: url({% static 'images/online.png' %}) no-repeat left center;">
-            <div class="statuswork_title"><span>Operator Online</span></div>
-            <div class="statuswork_date"><span>Live</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
+      <!-- footer-bottom --><br />
+    </footer>
+    <!-- footer -->
+
+    <script src="{% static 'new/jquery_002.js' %}"></script>
+    <script src="{% static 'new/bootstrap.js' %}"></script>
+    {% block script %} {% endblock script %}
   </body>
 </html>

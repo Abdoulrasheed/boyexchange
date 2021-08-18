@@ -12,12 +12,6 @@ class HomeView(ListView):
     template_name_suffix = "_home"
     model = Currency
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        transactions = Transaction.objects.all().order_by('-pk')[:2]
-        context['transactions'] = transactions
-        return context
-
 class DetailView(View):
     form = PurchaseForm
     def post(self, request):
@@ -101,9 +95,9 @@ class DeleteTransaction(View):
 
 class MarkPaidView(View):
     def post(self, request):
-        tran_id = request.POST.get("transaction")
-        if tran_id:
-            transaction = Transaction.objects.get(pk=tran_id)
+        hash = request.POST.get("transaction")
+        if hash:
+            transaction = Transaction.objects.get(transaction_hash=hash)
             transaction.has_mark_paid = True
             transaction.save()
             return JsonResponse({"success": True})

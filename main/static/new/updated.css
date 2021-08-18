@@ -2,13 +2,13 @@ body {
   background-color: rgb(0, 0, 0);
 }
 .navbar {
-  background-color: #2d3e50 !important;
+  background-color: gold !important;
   border-radius: 0 !important;
   min-height: 20vh !important;
   margin-top: 20px;
 }
 .navbar-left ul li a {
-  color: #fff !important;
+  color: rgb(0, 0, 0) !important;
   margin-right: 20px;
 }
 .navbar-left ul li a:hover {
@@ -19,16 +19,17 @@ body {
   margin-left: 20vw !important;
 }
 .change-text {
-  color: #fff;
+  color: rgb(0, 0, 0);
 }
 .nav-right {
   margin-top: 20px !important;
 }
 .btn-primary {
-  background-color: #2d3e50 !important;
+  background-color: gold !important;
+  color: black !important;
 }
 #loader {
-  background-color: #2d3e50;
+  background-color: gold;
   width: 67.9vw !important;
   height: 56vh !important;
   position: absolute;
@@ -47,4 +48,42 @@ body {
     height: 78vh !important;
     top: 0;
   }
+}
+.payment-form {
+  margin-top: 50px;
+}
+.wallet {
+  margin-bottom: 20px;
+}
+.wallet label {
+  font-size: 18px;
+  color: gold;
+}
+.wallet-info {
+  font-size: 25px;
+  background-color: gold;
+  padding: 10px;
+  color: #fff;
+}
+.wallet-info::after {
+  content: "\f0c5";
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  position: absolute;
+  right: 0;
+  margin-right: 30px;
+  text-decoration: none;
+  align-self: flex-end;
+}
+.timer-container {
+  margin-bottom: 20px;
+  background-color: gold; /* #2d3e50 */
+  padding: 20px;
+}
+.timer-message {
+  color: #fff;
+}
+#timer {
+  color: rgba(255, 255, 255, 0.7);
 }

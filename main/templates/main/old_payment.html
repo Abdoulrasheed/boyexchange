@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+{% load static %}
+<span></span>
+{% block title %} Make payment to proceed {% endblock %}
+<span></span>
+{% block content %}
+
+<div class="wrapper" style="margin-bottom: 70px;">
+    <div class="breadcrumb_wrap">
+        <div class="breadcrumb_div">
+            <div class="breadcrumb_ins" style="background: url({% static 'images/breadcrumb_r.png' %}) no-repeat 0px center;">
+                <h1 class="breadcrumb_title" id="timer"></h1>
+                <div class="breadcrumb">
+                    <ul>
+                        <li class="first">
+                            <a href="#" itemprop="item">
+                                <span itemprop="name">Payment will be cancelled when count down gets to 0s</span>
+                            </a>
+                            <meta itemprop="position" content="1" />
+                        </li>
+                        <div class="clear"></div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content_wrap">
+        <div class="content">
+                <div class="exch_ajax_wrap">
+                    <div class="exch_ajax_wrap_abs"></div>
+                    <div id="exch_html">
+                        <span id="transaction_id" hidden>{{ transaction.pk }}</span>
+                        <div class="notice_message">
+                            <div
+                                class="notice_message_ins"
+                                style="background: url({% static 'images/arrow_down.png' %}) no-repeat 0px 0px; background-size: 50px ">
+                                <div class="notice_message_abs"></div>
+                                <div class="notice_message_close"></div>
+                                <div class="notice_message_title">
+                                    <div class="notice_message_title_ins">
+                                        <span>Make Payment</span>
+                                    </div>
+                                </div>
+                                <div class="notice_message_text">
+                                    <div class="notice_message_text_ins">
+                                        <p>
+                                            <span style="line-height: 1.5">Kindly make a deposit to the following {% if is_naira %} bank account information  {% else %} {{ transaction.pair.currency.short_name }} address {% endif %} to receive your {{transaction.pair.pair.short_name }}</span
+                                            >
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="xchange_div">
+                            <div class="xchange_div_ins">
+                                <div class="xchange_data_title give">
+                                    <div class="xchange_data_title_ins">
+                                        <span>Make a transfer, DO NOT REFRESH THIS PAGE !!!</span>
+                                    </div>	
+                                </div>
+                                <div class="xchange_data_div">
+                                    {% csrf_token %}
+                                    {% if transaction.pair.currency.short_name == "NGN" %}
+                                    <p>Include the following transaction hash in your transfer description, </p>
+                                    <table style="width:100%">
+                                        <tr class="select_js_title_ins">
+                                            <td>Transaction Hash</td>
+                                            <td id="hash">{{ transaction_hash }}</td>
+                                        </tr>
+                                        <tr class="select_js_title_ins">
+                                            <th>Account Type</th>
+                                            <th>{{ config.account_type }}</th>
+                                        </tr>
+                                        <tr class="select_js_title_ins">
+                                            <td>Account Number:</td>
+                                            <td class="text_higlight">{{ config.account_number }}</td>
+                                        </tr>
+                                        <tr class="select_js_title_ins">
+                                            <td>Bank</td>
+                                            <td>{{ config.bank }}</td>
+                                        </tr>
+                                        <tr class="select_js_title_ins">
+                                            <td>Account Name</td>
+                                            <td>{{ config.account_name }}</td>
+                                        </tr>
+                                        
+                                        </table>
+                                    {% elif transaction.pair.currency.short_name == "BTC" %}
+                                     <div class="xchange_data_ins"> 
+                                        <div class="xchange_data_left">
+                                            <div class="xchange_select">                     
+                                                <div class="select_js iselect_js" style="width: 340px; height: 50px;">
+                                                    <div class="select_js_title">
+                                                        <div class="select_js_title_ins">
+                                                            <div class="select_txt">{{ config.btc_wallet_address }}</div>
+                                                        </div>
+                                                        <div style="clear: both;"></div>
+                                                    </div>
+                                                </div>						
+                                            </div>
+                                        </div>						
+                                        <div class="clear"></div>
+                                    </div>
+                                    {% elif transaction.pair.currency.short_name == "ETH" %}
+                                     <div class="xchange_data_ins"> 
+                                        <div class="xchange_data_left">
+                                            <div class="xchange_select">                     
+                                                <div class="select_js iselect_js" style="width: 340px; height: 50px;">
+                                                    <div class="select_js_title">
+                                                        <div class="select_js_title_ins">
+                                                            <div class="select_txt">{{ config.eth_wallet_address }}</div>
+                                                        </div>
+                                                        <div style="clear: both;"></div>
+                                                    </div>
+                                                </div>						
+                                            </div>
+                                        </div>						
+                                        <div class="clear"></div>
+                                    </div>
+                                    {% elif transaction.pair.currency.short_name == "USD" %}
+                                     <div class="xchange_data_ins"> 
+                                        <div class="xchange_data_left">
+                                            <div class="xchange_select">                     
+                                                <div class="select_js iselect_js">
+                                                    <div class="select_js_title">
+                                                        <div class="select_js_title_ins">
+                                                            <div class="select_txt">{{ config.usd_wallet_address }}</div>
+                                                        </div>
+                                                        <div style="clear: both;"></div>
+                                                    </div>
+                                                </div>						
+                                            </div>
+                                        </div>						
+                                        <div class="clear"></div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="xchange_submit_div">
+                            <input id="done_transfer" type="submit" formtarget="_top" class="xchange_submit" value="I'M DONE"> 
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+// Set the date we're counting down to
+  // Get today's date and time
+  var countDownDate = new Date();
+  countDownDate.setMinutes(countDownDate.getMinutes() + 30); // timestamp
+  countDownDate = new Date(countDownDate);
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  document.getElementById("timer").innerHTML =  minutes + " min " + seconds + " sec";
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    const token = $('input[name="csrfmiddlewaretoken"]').val();
+    const transaction = $("#hash").text()
+    
+    $.ajax({
+      type: "POST",
+      url: "/delete_transaction/",
+      data: {
+        transaction,
+        csrfmiddlewaretoken: token,
+      },
+      beforeSend: function () {
+        $("#timer").html("EXPIRED: Redirecting");
+      },
+      error: function (err) {
+        console.log(err);
+      },
+      success: function () {
+        window.location.href = "/";
+      },
+    });
+  }
+}, 1000);
+</script>
+{% endblock %}

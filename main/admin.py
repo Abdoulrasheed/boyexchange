@@ -12,6 +12,7 @@ class ReviewAdmin(admin.ModelAdmin):
 
 class TransactionAdmin(admin.ModelAdmin):
     list_display = ['pair', 'coin_amount', 'pair_amount']
+    readonly_fields = ['pair', 'coin_amount', 'pair_amount', 'transaction_hash', 'has_mark_paid', 'wallet_address', 'bank_name', 'account_name', 'account_type', 'account_number', 'fullname', 'email', 'phone']
 
 class NewsAdmin(admin.ModelAdmin):
     list_display = ['title', 'body']
