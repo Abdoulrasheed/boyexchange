@@ -2,13 +2,13 @@ body {
   background-color: rgb(0, 0, 0);
 }
 .navbar {
-  background-color: gold !important;
+  background-color: #2d3e50 !important;
   border-radius: 0 !important;
   min-height: 20vh !important;
   margin-top: 20px;
 }
 .navbar-left ul li a {
-  color: rgb(0, 0, 0) !important;
+  color: gold !important;
   margin-right: 20px;
 }
 .navbar-left ul li a:hover {
@@ -25,11 +25,11 @@ body {
   margin-top: 20px !important;
 }
 .btn-primary {
-  background-color: gold !important;
-  color: black !important;
+  background-color: #2d3e50 !important;
+  color: gold !important;
 }
 #loader {
-  background-color: gold;
+  background-color: #2d3e50;
   width: 67.9vw !important;
   height: 56vh !important;
   position: absolute;
@@ -57,11 +57,11 @@ body {
 }
 .wallet label {
   font-size: 18px;
-  color: gold;
+  color: #2d3e50;
 }
 .wallet-info {
   font-size: 25px;
-  background-color: gold;
+  background-color: #2d3e50;
   padding: 10px;
   color: #fff;
 }
@@ -78,7 +78,7 @@ body {
 }
 .timer-container {
   margin-bottom: 20px;
-  background-color: gold; /* #2d3e50 */
+  background-color: #2d3e50; /* #2d3e50 */
   padding: 20px;
 }
 .timer-message {
